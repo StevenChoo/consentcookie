@@ -44,7 +44,6 @@
 
   // Components
   const icContentBox = require('components/general/ccContentBox.vue');
-  const icVideo = require('components/general/ccVideo.vue');
 
   // Defaults
   const DEFAULT_CONFIG_KEY_RESOURCES_NL_ABOUT_TITLE = 'resources.nl.about.title';
@@ -57,7 +56,6 @@
     name: 'about',
     components: {
       icContentBox,
-      icVideo,
     },
     computed: {
       title() {
