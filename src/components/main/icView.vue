@@ -176,7 +176,7 @@
       }
 
       .viewHolder {
-        border-radius: $ic-box-border-radius;
+        border-radius: $cc-box-border-radius;
         box-shadow: -5px 5px 10px 0px rgba(136, 136, 136, 0.15);
         overflow: hidden;
 

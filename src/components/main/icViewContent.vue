@@ -81,9 +81,9 @@
 
   #ic-view-content {
 
-    border: $ic-box-border;
-    border-radius: 0px 0px $ic-box-border-radius $ic-box-border-radius;
-    background: $ic-color-white;
+    border: $cc-box-border;
+    border-radius: 0px 0px $cc-box-border-radius $cc-box-border-radius;
+    background: $cc-color-white;
 
     .ic-view-scollholder {
 

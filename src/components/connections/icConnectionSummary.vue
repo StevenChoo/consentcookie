@@ -130,7 +130,7 @@
       cursor: pointer;
 
       &.off {
-        color: $ic-brand-color;
+        color: $cc-brand-color;
       }
 
       &.disabled {

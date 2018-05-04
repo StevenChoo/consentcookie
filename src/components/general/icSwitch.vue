@@ -65,8 +65,8 @@
   $switch-height: 30;
   $switch-border-width: 1;
   $switch-on-margin-offset: -2;
-  $switch-color-on: $ic-brand-color;
-  $switch-color-off: $ic-color-white;
+  $switch-color-on: $cc-brand-color;
+  $switch-color-off: $cc-color-white;
   $switch-state-fontsize: 10;
   $switch-state-offset: 10;
   $switch-state-center-offset: 2;
@@ -82,19 +82,19 @@
     &.disabled {
 
       > input[type="checkbox"]:checked + span {
-        background-color: $ic-color-dark-grey !important;
+        background-color: $cc-color-dark-grey !important;
 
         &:before {
-          background: $ic-color-white;
+          background: $cc-color-white;
         }
 
         .switch{
           background-color: $switch-color-off;
-          border-color: $ic-color-dark-grey !important;
+          border-color: $cc-color-dark-grey !important;
         }
 
         .state {
-          color: $ic-color-dark-grey;
+          color: $cc-color-dark-grey;
         }
       }
     }

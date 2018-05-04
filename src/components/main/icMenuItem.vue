@@ -68,7 +68,7 @@
     width: $menu-item-width;
     border-radius: $menu-item-radius;
     margin: 0px 20px 0px 0px;
-    border: 2px solid $ic-color-white;
+    border: 2px solid $cc-color-white;
     text-align: center;
     box-sizing: border-box;
 
@@ -85,7 +85,7 @@
     }
 
     &:hover {
-      background: $ic-overlay-white-transparant
+      background: $cc-overlay-white-transparant
     }
 
     > * {
@@ -108,7 +108,7 @@
 
     i {
       font-size: 24px;
-      color: $ic-color-white;
+      color: $cc-color-white;
     }
 
     i.active{
@@ -122,11 +122,11 @@
       .fill {
         transform: scale(1);
         opacity: 1;
-        background: $ic-color-white;
+        background: $cc-color-white;
       }
 
       i {
-        color: $ic-brand-color;
+        color: $cc-brand-color;
         display:none;
       }
 

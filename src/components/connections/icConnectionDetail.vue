@@ -107,7 +107,7 @@
         width: 100%;
         padding: 0px 10px;
         height: 1px;
-        background: $hs-color-border-grey;
+        background: $cc-border-color;
         margin-bottom: 10px;
 
         .pointer {
@@ -120,8 +120,8 @@
             position: absolute;
             margin-top: -9px;
             margin-left: -10px;
-            stroke: $hs-color-border-grey;
-            fill: $hs-color-white;
+            stroke: $cc-border-color;
+            fill: $cc-border-color;
           }
         }
 

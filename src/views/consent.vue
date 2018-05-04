@@ -102,7 +102,7 @@
       .info-link {
         display: block;
         margin-top: 15px;
-        color: $ic-link-color;
+        color: $cc-link-color;
         font-size: 12px;
         font-style: italic;
         text-decoration: underline;

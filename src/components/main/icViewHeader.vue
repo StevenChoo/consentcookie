@@ -60,7 +60,7 @@
   .ic-view-header {
 
     padding: 20px;
-    background: $ic-brand-color;
+    background: $cc-brand-color;
     color: #FFFFFF;
     border-radius: 5px 5px 0px 0px;
     overflow: hidden;

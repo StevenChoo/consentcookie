@@ -122,9 +122,9 @@
       box-sizing: border-box;
       padding: 5px 10px;
       background: none;
-      border: 1px solid $ic-brand-color;
+      border: 1px solid $cc-brand-color;
       border-radius: 3px;
-      color: $ic-brand-color;
+      color: $cc-brand-color;
     }
     button:last-child {
       float: right;

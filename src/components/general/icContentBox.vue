@@ -34,13 +34,13 @@
   .ic-content-box {
     margin: 5px;
     padding: 10px 25px;
-    border: $ic-box-border;
-    border-radius: $ic-box-border-radius;
+    border: $cc-box-border;
+    border-radius: $cc-box-border-radius;
 
     .icTitle {
       font-size: 26px;
       font-weight: 600;
-      color: $ic-brand-color;
+      color: $cc-brand-color;
       margin: 5px 0px 5px 0px;
     }
     .icText {

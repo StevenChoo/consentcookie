@@ -68,8 +68,8 @@
 
   @import '../../assets/scss/general-variables';
 
-  $icon-color-on: $ic-brand-color;
-  $icon-color-off: $ic-color-dark-grey;
+  $icon-color-on: $cc-brand-color;
+  $icon-color-off: $cc-color-dark-grey;
 
   i.ic-toggle-icon {
 
@@ -83,7 +83,7 @@
 
     &.disabled {
       cursor: default;
-      color: $ic-color-dark-grey !important;
+      color: $cc-color-dark-grey !important;
     }
   }
 </style>

@@ -136,9 +136,9 @@
       line-height: $menu-button-height;
       height: $menu-button-height;
       width: $menu-button-width;
-      background: $ic-color-white;
+      background: $cc-color-white;
       cursor: pointer;
-      border: $ic-box-border;
+      border: $cc-box-border;
       border-radius: $menu-button-radius;
       box-shadow: $menu-button-shadow;
       transition: transform 0.8s ease-in-out;
@@ -152,7 +152,7 @@
         position: absolute;
         text-align: center;
         transition: opacity 0.8s ease-in-out;
-        fill: $ic-brand-color;
+        fill: $cc-brand-color;
 
         &.open {
           /* offset due to border and spacing logo height vs button height*/
@@ -223,7 +223,7 @@
         height: $menu-button-size + px;
         padding: 5px ($menu-button-size / 2) + px 5px 5px;
         border-radius: $menu-button-size + px 0px 0px $menu-button-size + px;
-        background: $ic-brand-color;
+        background: $cc-brand-color;
 
         @include default-clearfix();
 

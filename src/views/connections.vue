@@ -74,13 +74,12 @@
       padding: 5px 0px;
 
       a {
-        color: $hs-color-black !important;
+        color: $cc-color-black !important;
         text-decoration: underline;
         font-style: italic;
         font-size: 10px;
         cursor: pointer;
       }
     }
-
   }
 </style>

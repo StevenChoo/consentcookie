@@ -116,7 +116,7 @@
   .ic-connection-profile {
 
     margin: 15px 0px;
-    border: $ic-box-border;
+    border: $cc-box-border;
 
     .loading,
     .no-profile {

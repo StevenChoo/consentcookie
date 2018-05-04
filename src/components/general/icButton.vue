@@ -125,42 +125,42 @@
     }
 
     &.default {
-      color: $ic-button-default-font-color;
-      background-color: $ic-button-default-background-color;
-      box-shadow: $ic-button-default-box-shadow;
+      color: $cc-button-default-font-color;
+      background-color: $cc-button-default-background-color;
+      box-shadow: $cc-button-default-box-shadow;
       &.is-plain {
-        border: 1px solid $ic-button-default-plain-color;
+        border: 1px solid $cc-button-default-plain-color;
         background-color: transparent;
         box-shadow: none;
-        color: $ic-button-default-plain-color;
+        color: $cc-button-default-plain-color;
         &:after {
           background-color: #FFFFFF;
         }
       }
     }
     &.primary {
-      color: $ic-button-default-font-color;
-      background-color: $ic-button-default-background-color;
-      box-shadow: $ic-button-default-box-shadow;
+      color: $cc-button-default-font-color;
+      background-color: $cc-button-default-background-color;
+      box-shadow: $cc-button-default-box-shadow;
       &.is-plain {
-        border: 1px solid $ic-button-default-plain-color;
+        border: 1px solid $cc-button-default-plain-color;
         background-color: transparent;
         box-shadow: none;
-        color: $ic-button-default-plain-color;
+        color: $cc-button-default-plain-color;
         &:after {
           background-color: #FFFFFF;
         }
       }
     }
     &.danger {
-      color: $ic-button-default-font-color;
-      background-color: $ic-button-default-background-color;
-      box-shadow: $ic-button-default-box-shadow;
+      color: $cc-button-default-font-color;
+      background-color: $cc-button-default-background-color;
+      box-shadow: $cc-button-default-box-shadow;
       &.is-plain {
-        border: 1px solid $ic-button-default-plain-color;
+        border: 1px solid $cc-button-default-plain-color;
         background-color: transparent;
         box-shadow: none;
-        color: $ic-button-default-plain-color;
+        color: $cc-button-default-plain-color;
         &:after {
           background-color: #FFFFFF;
         }
