@@ -18,7 +18,7 @@
 <template>
   <div id="icView">
     <div class="icViewWrapper">
-      <transition enter-active-class="icAnimated icSlideIn" leave-active-class="icAnimated icSlideOut">
+      <transition enter-active-class="ccAnimated ccSlideIn" leave-active-class="ccAnimated ccSlideOut">
         <div v-show="isShown" :style="viewHolderCss" class="viewHolder">
           <ic-view-header :height="headerHeight" :style="{minWidth:'350px'}"/>
           <ic-view-content :style="viewContentCss" :class="phoneLandscape">

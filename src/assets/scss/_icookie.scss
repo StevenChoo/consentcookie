@@ -34,7 +34,7 @@
 }
 
 // Animation keyframes
-@keyframes icSlideInRight {
+@keyframes ccSlideInRight {
   from {
     transform: translate3d(100%, 0, 0);
     visibility: visible;
@@ -45,7 +45,7 @@
   }
 }
 
-@keyframes icSlideOutRight {
+@keyframes ccSlideOutRight {
   from {
     transform: translate3d(0, 0, 0);
   }
@@ -56,7 +56,7 @@
   }
 }
 
-@keyframes icSlideInLeft {
+@keyframes ccSlideInLeft {
   from {
     transform: translate3d(-100%, 0, 0);
     visibility: visible;
@@ -67,7 +67,7 @@
   }
 }
 
-@keyframes icSlideOutLeft {
+@keyframes ccSlideOutLeft {
   from {
     transform: translate3d(0, 0, 0);
   }
@@ -125,24 +125,24 @@
   }
 
   // CSS Animations
-  .icAnimated {
+  .ccAnimated {
     animation-duration: 1s;
     animation-fill-mode: both;
   }
 
-  .icSlideIn {
-    animation-name: icSlideInRight;
+  .ccSlideIn {
+    animation-name: ccSlideInRight;
   }
 
-  .icSlideOut {
-    animation-name: icSlideOutRight;
+  .ccSlideOut {
+    animation-name: ccSlideOutRight;
   }
 
-  &.cc-left .icSlideIn {
-    animation-name: icSlideInLeft;
+  &.cc-left .ccSlideIn {
+    animation-name: ccSlideInLeft;
   }
 
-  &.cc-left .icSlideOut {
-    animation-name: icSlideOutLeft;
+  &.cc-left .ccSlideOut {
+    animation-name: ccSlideOutLeft;
   }
 }

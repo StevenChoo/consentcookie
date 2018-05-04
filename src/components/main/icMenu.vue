@@ -18,7 +18,7 @@
 <template>
   <div id="icMenu">
     <div class="ic-menu-bar">
-      <transition enter-active-class="icAnimated icSlideIn" leave-active-class="icAnimated icSlideOut">
+      <transition enter-active-class="ccAnimated ccSlideIn" leave-active-class="ccAnimated ccSlideOut">
         <div v-show="isOpen" class="ic-menu-items" v-theme="{background:'primary'}">
           <ic-menu-item v-for="menuItem in menuItems" :key="menuItem.path" :data="menuItem"
                         v-theme="{background:'primary'}"/>
