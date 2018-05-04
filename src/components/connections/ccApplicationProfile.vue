@@ -37,8 +37,8 @@
 
   // Libraries
   const underscore = require('underscore');
-  const icToggleBox = require('components/general/icToggleBox.vue');
-  const icConnectionActions = require('components/connections/icConnectionActions.vue');
+  const icToggleBox = require('components/general/ccToggleBox.vue');
+  const icConnectionActions = require('components/connections/ccApplicationActions.vue');
 
   function loadProfile() {
     const self = this;

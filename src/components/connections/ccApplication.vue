@@ -24,8 +24,8 @@
 
 <script>
   // Components
-  const icConnectionSummary = require('components/connections/icConnectionSummary.vue');
-  const icConnectionDetail = require('components/connections/icConnectionDetail.vue');
+  const icConnectionSummary = require('components/connections/ccApplicationSummary.vue');
+  const icConnectionDetail = require('components/connections/ccApplicationDetail.vue');
 
   // Public functions
   module.exports = {

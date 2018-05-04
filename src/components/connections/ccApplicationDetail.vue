@@ -48,11 +48,11 @@
 
 <script>
 
-  const icToggleBox = require('components/general/icToggleBox.vue');
+  const icToggleBox = require('components/general/ccToggleBox.vue');
 
-  const icConnectionProperty = require('./icConnectionProperty.vue');
-  const icConnectionProfile = require('components/connections/icConnectionProfile.vue');
-  const icConnectionActions = require('components/connections/icConnectionActions.vue');
+  const icConnectionProperty = require('./ccApplicationProperty.vue');
+  const icConnectionProfile = require('components/connections/ccApplicationProfile.vue');
+  const icConnectionActions = require('components/connections/ccApplicationActions.vue');
 
   // Vue module
   module.exports = {
@@ -121,7 +121,7 @@
             margin-top: -9px;
             margin-left: -10px;
             stroke: $cc-border-color;
-            fill: $cc-border-color;
+            fill: $cc-color-white;
           }
         }
 

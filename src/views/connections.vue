@@ -28,7 +28,7 @@
 <script>
 
   // Components
-  const icConnection = require('components/connections/icConnection.vue');
+  const icConnection = require('components/connections/ccApplication.vue');
 
   // Defaults
   const viewTitle = 'Jouw instellingen';

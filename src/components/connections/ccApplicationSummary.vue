@@ -27,9 +27,9 @@
 
 <script>
 
-  const icToggleImg = require('components/general/icToggleImg.vue');
-  const icImg = require('components/general/icImg.vue');
-  const icToggle = require('components/general/icToggle.vue');
+  const icToggleImg = require('components/general/ccToggleImg.vue');
+  const icImg = require('components/general/ccImg.vue');
+  const icToggle = require('components/general/ccToggle.vue');
 
   module.exports = {
     name: 'ic-connection-summary',

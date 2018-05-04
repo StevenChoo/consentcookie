@@ -28,8 +28,8 @@
   const DEFAULT_CONFIG_DESIGN_LAYOUT_POSITION_LEFT_VAL = 'left';
 
   // Components
-  const icMenu = require('../components/main/icMenu.vue');
-  const icView = require('../components/main/icView.vue');
+  const icMenu = require('../components/main/ccMenu.vue');
+  const icView = require('../components/main/ccView.vue');
 
   module.exports = {
     name: 'mainView', // main is a reserved word

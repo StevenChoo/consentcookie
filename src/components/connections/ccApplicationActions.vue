@@ -30,7 +30,7 @@
   const utils = require('base/utils.js');
 
   // Components
-  const icToggleBox = require('components/general/icToggleBox.vue');
+  const icToggleBox = require('components/general/ccToggleBox.vue');
 
   // Vue module
   module.exports = {

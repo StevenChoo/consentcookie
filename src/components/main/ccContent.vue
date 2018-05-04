@@ -24,7 +24,7 @@
 
 <script>
 
-  const icView = require('components/main/icView.vue');
+  const icView = require('components/main/ccView.vue');
   const consentView = require('views/consent.vue');
 
   module.exports = {

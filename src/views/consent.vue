@@ -29,8 +29,8 @@
 <script>
 
   // Components
-  const icContentBox = require('components/general/icContentBox.vue');
-  const icButton = require('components/general/icButton.vue');
+  const icContentBox = require('components/general/ccContentBox.vue');
+  const icButton = require('components/general/ccButton.vue');
 
   // Defaults
   const DEFAULT_CONFIG_KEY_CONSENTWALL_BLOCKPAGE = 'general.consent.blockpage';

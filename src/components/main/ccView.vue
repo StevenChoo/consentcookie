@@ -36,8 +36,8 @@
   const _ = require('underscore');
 
   // Components
-  const icViewHeader = require('components/main/icViewHeader.vue');
-  const icViewContent = require('components/main/icViewContent.vue');
+  const icViewHeader = require('components/main/ccViewHeader.vue');
+  const icViewContent = require('components/main/ccViewContent.vue');
 
   // Defaults
   const DEFAULT_VIEW_TOP_MARGIN = 30;

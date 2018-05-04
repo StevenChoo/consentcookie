@@ -24,7 +24,7 @@
 <script>
 
   // Components
-  const icImg = require('components/general/icImg.vue');
+  const icImg = require('components/general/ccImg.vue');
 
   module.exports = {
     name: 'ic-toggle-img',

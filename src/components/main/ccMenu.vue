@@ -41,7 +41,7 @@
   const DEFAULT_TOOLTIP_CLOSE = 'ConsentCookie sluiten';
 
   // Components
-  const icMenuItem = require('components/main/icMenuItem.vue');
+  const icMenuItem = require('components/main/ccMenuItem.vue');
 
   const icSvgLogo = require('../../assets/img/logo.svg');
   const icSvgClose = require('../../assets/img/close.svg');
