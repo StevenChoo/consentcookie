@@ -63,3 +63,17 @@ $cc-box-border-radius: 5px;
     clear: both;
   }
 }
+
+@mixin default-vertical-center-helper {
+  &:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+  .v-centered {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

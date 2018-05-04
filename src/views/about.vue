@@ -18,20 +18,20 @@
 <template>
   <div class="howto">
     <ic-content-box>
-      <div class="icText" v-show="about" v-html="about"/>
+      <div class="ccText" v-show="about" v-html="about"/>
       <div v-show="!about">
-        <div class="icText intro">
+        <div class="ccText intro">
           Baas over eigen data, dat vinden wij heel normaal. Niet alleen vanwege de AVG, maar omdat wij geloven in
           transparantie en fatsoen. Daarom gebruiken wij ConsentCookie.
         </div>
-        <div class="icText text1">
+        <div class="ccText text1">
           ConsentCookie laat jou zien welke data we van jou verzamelen en waarom we dat doen.
           Ga naar
           <router-link :to="{path: 'connections' }">Jouw instellingen</router-link>
           om jouw persoonlijke voorkeuren vast te leggen.
           Ze zijn daarna direct van kracht en kunnen op elk moment worden aangepast.
         </div>
-        <div class="icText text2">
+        <div class="ccText text2">
           <i>ConsentCookie op jouw eigen website gebruiken?</i>
           <div class="sub">Voor meer informatie:<a href="https://www.consentcookie.nl" target="_blank ">www.consentcookie.nl</a>
           </div>
@@ -82,7 +82,7 @@
 
     min-width: 320px;
 
-    .icText {
+    .ccText {
       text-align: left;
 
       a {

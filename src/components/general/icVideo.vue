@@ -19,7 +19,7 @@
   <div class="icVideo">
     <video :src="videoUrl" width="100%" height="100%"
            @ended="onEnded" preload/>
-    <div :class="['inline-fix','ic-video-toggle',{begin:isEnded,playing:isPlaying,paused:isPaused,hover:isHover}]" @click="toggleVideo" @mouseleave="resetHover">
+    <div :class="['ic-video-toggle',{begin:isEnded,playing:isPlaying,paused:isPaused,hover:isHover}]" @click="toggleVideo" @mouseleave="resetHover">
       <i :class="['v-centered',{'cc-pause-circle':(isPlaying && !isEnded),'cc-play-circle':!isPlaying || (isPlaying && isEnded)}]" aria-hidden="true"/>
     </div>
   </div>
@@ -92,6 +92,8 @@
     position: relative;
     width: 100%;
     height: 100%;
+
+    @include default-vertical-center-helper();
 
     .ic-video-toggle {
       transition: all 0.2s;

@@ -90,41 +90,19 @@
   -webkit-font-smoothing: antialiased;
 }
 
-// ConsentCookie generic css class helpers
 #ConsentCookie {
   z-index: 1073741823;
-
-  .inline-fix {
-    &:before {
-      content: "";
-      display: inline-block;
-      vertical-align: middle;
-      height: 100%;
-    }
-
-    .v-centered {
-      display: inline-block;
-      vertical-align: middle;
-    }
-  }
 
   a {
     color: $cc-link-color;
   }
 
-  .notification {
-    padding: 5px 10px;
-    border-left: 3px solid $cc-brand-color;
-    margin: 10px 15px 10px 15px;
-  }
-
-  .icText {
+  .ccText {
     p {
       margin-bottom: 10px;
     }
   }
 
-  // CSS Animations
   .ccAnimated {
     animation-duration: 1s;
     animation-fill-mode: both;

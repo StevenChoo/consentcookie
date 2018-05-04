@@ -18,7 +18,7 @@
 <template>
   <div id="consent">
     <ic-content-box>
-      <div class="icText" v-html="consentText"/>
+      <div class="ccText" v-html="consentText"/>
       <div class="contentActions">
         <ic-button class="" size="large" @click="accept" v-theme="{background:'primary',color:'secondary'}">{{ consentButtonText }}</ic-button>
         <a :href="consentInfoLink" class="info-link" target="_blank">Meer informatie</a>

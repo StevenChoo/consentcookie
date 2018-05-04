@@ -43,7 +43,7 @@
       color: $cc-brand-color;
       margin: 5px 0px 5px 0px;
     }
-    .icText {
+    .ccText {
       line-height: 22px;
       font-size: 15px;
       padding-top: 5px;
