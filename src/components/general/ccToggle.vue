@@ -15,12 +15,12 @@
   -
   -->
 <template>
-  <span :class="['ic-toggle',{'toggle-enabled':toggleValue,'toggle-disabled':!toggleValue}]" @click="toggle()"><slot/></span>
+  <span :class="['cc-toggle',{'cc-toggle-enabled':toggleValue,'cc-toggle-disabled':!toggleValue}]" @click="toggle()"><slot/></span>
 </template>
 
 <script>
   module.exports = {
-    name: 'ic-toggle',
+    name: 'cc-toggle',
     props: {
       value: {
         type: Boolean,
@@ -55,7 +55,7 @@
 
 <style lang="scss" scoped>
 
-  .ic-toggle {
+  .cc-toggle {
     cursor: pointer;
   }
 

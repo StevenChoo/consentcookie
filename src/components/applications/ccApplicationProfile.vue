@@ -17,28 +17,27 @@
 
 <template>
   <div v-if="hasPlugin">
-    <div class="ic-connection-profile">
-      <div v-if="isLoading" class="loading">Profiel wordt opgehaald <i
-        class="cc-spinner animate-spin cc-animate-pulse"/>
+    <div class="cc-application-profile">
+      <div v-if="isLoading" class="cc-loading">Profiel wordt opgehaald <i
+        class="cc-spinner cc-animate-pulse animate-spin"/>
       </div>
-      <ic-toggle-box v-if="hasProfile && !isLoading">
+      <cc-toggle-box v-if="hasProfile && !isLoading">
         <div slot="header" class="cc-box-header" v-html="profileInfo.header"/>
         <div slot="content" class="cc-box-content">
           <div v-html="profileInfo.content"/>
         </div>
-      </ic-toggle-box>
-      <div v-if="!hasProfile && !isLoading" class="no-profile">Geen profiel beschikbaar</div>
+      </cc-toggle-box>
+      <div v-if="!hasProfile && !isLoading" class="cc-no-profile">Geen profiel beschikbaar</div>
     </div>
-    <ic-connection-actions v-if="hasProfile && !isLoading" :connection="connection" :state="state"/>
+    <cc-application-actions v-if="hasProfile && !isLoading" :application="application" :state="state"/>
   </div>
 </template>
 
 <script>
 
   // Libraries
-  const underscore = require('underscore');
-  const icToggleBox = require('components/general/ccToggleBox.vue');
-  const icConnectionActions = require('components/connections/ccApplicationActions.vue');
+  const ccToggleBox = require('components/general/ccToggleBox.vue');
+  const ccApplicationActions = require('components/applications/ccApplicationActions.vue');
 
   function loadProfile() {
     const self = this;
@@ -46,7 +45,7 @@
     self.isLoading = true;
     self.hasProfile = false;
 
-    this.connectionPlugin.getProfileInfo()
+    this.applicationPlugin.getProfileInfo()
       .then(($profileInfo) => {
         self.profileInfo = $profileInfo;
         self.hasProfile = ($profileInfo != null);
@@ -60,13 +59,13 @@
 
   // Vue module
   module.exports = {
-    name: 'ic-connection-profile',
+    name: 'cc-application-profile',
     components: {
-      icToggleBox,
-      icConnectionActions,
+      ccToggleBox,
+      ccApplicationActions,
     },
     props: {
-      connection: {
+      application: {
         type: Object,
         required: true,
       },
@@ -80,7 +79,7 @@
     },
     data() {
       return {
-        connectionPlugin: null,
+        applicationPlugin: null,
         profileInfo: null,
         isLoading: false,
         hasPlugin: false,
@@ -90,10 +89,10 @@
     mounted() {
       const self = this;
 
-      self.$services.plugin.getPlugin(self.connection)
+      self.$services.plugin.getPlugin(self.application)
         .then(($plugin) => {
           if ($plugin && !($plugin instanceof Error)) {
-            self.connectionPlugin = $plugin;
+            self.applicationPlugin = $plugin;
             self.hasPlugin = true;
             self.loadProfile();
           }
@@ -113,13 +112,15 @@
 
   @import '../../assets/scss/general-variables';
 
-  .ic-connection-profile {
+  .cc-application-profile {
 
     margin: 15px 0px;
     border: $cc-box-border;
+    font-size: 13px;
+    text-align: left;
 
-    .loading,
-    .no-profile {
+    .cc-loading,
+    .cc-no-profile {
       height: 40px;
       line-height: 40px;
       text-align: center;

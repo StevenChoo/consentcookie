@@ -16,9 +16,9 @@
   -->
 
 <template>
-  <router-link :to="data.path" :title="data.info" class="ic-menu-item" tag="div" v-theme="{borderColor:'secondary'}">
-    <div class="fill" v-theme="{background:'secondary'}"/>
-    <i :class="['cc-' + data.icon,'active']" :style="{styleObj}" aria-hidden="true" v-theme="{color:'primary'}"/>
+  <router-link :to="data.path" :title="data.info" class="cc-menu-item" tag="div" v-theme="{borderColor:'secondary'}">
+    <div class="cc-fill" v-theme="{background:'secondary'}"/>
+    <i :class="['cc-' + data.icon,'cc-active']" :style="{styleObj}" aria-hidden="true" v-theme="{color:'primary'}"/>
     <i :class="['cc-' + data.icon]" :style="{styleObj}" aria-hidden="true" v-theme="{color:'secondary'}"/>
   </router-link>
 </template>
@@ -27,8 +27,7 @@
 
   /* VUE */
   module.exports = {
-    name: 'icMenuItem',
-    components: {},
+    name: 'ccMenuItem',
     props: {
       data: {
         type: Object,
@@ -58,8 +57,8 @@
   $menu-item-height: $menu-item-width;
   $menu-item-radius: $menu-item-width;
 
-  .ic-menu-item,
-  .no-content .ic-menu-item.active {
+  .cc-menu-item,
+  .cc-no-content .cc-menu-item.cc-active {
 
     position: relative;
     cursor: pointer;
@@ -99,7 +98,7 @@
       border-radius: $menu-item-radius;
     }
 
-    .fill {
+    .cc-fill {
       opacity: 0;
       transition: all 0.2s ease;
       transform: scale(0);
@@ -111,15 +110,15 @@
       color: $cc-color-white;
     }
 
-    i.active{
+    i.cc-active {
       display: none;
     }
   }
 
-  .ic-menu-item {
-    &.active {
+  .cc-menu-item {
+    &.cc-active {
 
-      .fill {
+      .cc-fill {
         transform: scale(1);
         opacity: 1;
         background: $cc-color-white;
@@ -127,10 +126,10 @@
 
       i {
         color: $cc-brand-color;
-        display:none;
+        display: none;
       }
 
-      i.active{
+      i.cc-active {
         display: inline;
       }
     }

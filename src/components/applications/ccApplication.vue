@@ -16,26 +16,26 @@
   -->
 
 <template>
-  <div class="ic-connection">
-    <ic-connection-summary :connection="connection" :state="state" @update="state"/>
-    <ic-connection-detail :connection="connection" :state="state"/>
+  <div class="cc-application">
+    <cc-application-summary :application="application" :state="state" @update="state"/>
+    <cc-application-detail :application="application" :state="state"/>
   </div>
 </template>
 
 <script>
   // Components
-  const icConnectionSummary = require('components/connections/ccApplicationSummary.vue');
-  const icConnectionDetail = require('components/connections/ccApplicationDetail.vue');
+  const ccApplicationSummary = require('components/applications/ccApplicationSummary.vue');
+  const ccApplicationDetail = require('components/applications/ccApplicationDetail.vue');
 
   // Public functions
   module.exports = {
-    name: 'ic-connection',
+    name: 'cc-application',
     components: {
-      icConnectionSummary,
-      icConnectionDetail,
+      ccApplicationSummary,
+      ccApplicationDetail,
     },
     props: {
-      connection: {
+      application: {
         type: Object,
         required: true,
       },
@@ -53,7 +53,7 @@
     created() {
       const self = this;
 
-      this.$services.connections.getPlugin(this.connection)
+      this.$services.applications.getPlugin(this.application)
         .then(($plugin) => {
           if ($plugin && !($plugin instanceof Error)) {
             self.state.hasProfile = true;
@@ -69,7 +69,7 @@
 
   @import '../../assets/scss/general-variables';
 
-  .ic-connection {
+  .cc-application {
 
     @include default-content-border();
     margin: 10px;

@@ -16,26 +16,33 @@
   -->
 
 <template>
-  <div id="icContent">
-    <consent-view/>
-    <ic-view/>
-  </div>
+  <li class="cc-application-property">
+    <i :class="['cc-ok',{'cc-enabled':isChecked}]"/><span>{{ info }}</span>
+  </li>
 </template>
 
 <script>
-
-  const icView = require('components/main/ccView.vue');
-  const consentView = require('views/consent.vue');
-
   module.exports = {
-    name: 'icContent',
-    components: {
-      icView,
-      consentView,
+    name: 'cc-application-property',
+    components: {},
+    props: {
+      property: {
+        type: Object,
+        required: true,
+      },
+    },
+    computed: {
+      info() {
+        return this.property.id + ' - ' + this.property.type;
+      },
+      isChecked() {
+        return this.property.enabled;
+      },
     },
     data() {
       return {};
     },
+    methods: {},
   };
 </script>
 
@@ -43,7 +50,16 @@
 
   @import '../../assets/scss/general-variables';
 
-  #icContent {
-    position: relative;
+  .cc-application-property {
+    list-style: none;
+
+    i {
+      margin-right: 5px;
+      color: $cc-color-dark-grey;
+
+      &.cc-enabled {
+        color: $cc-color-done-true;
+      }
+    }
   }
 </style>

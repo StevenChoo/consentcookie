@@ -16,30 +16,34 @@
   -->
 
 <template>
-  <div class="ic-connection-summary">
-    <ic-toggle v-model="showInfo" class="ic-toggle-text">
-      <ic-img :img="connection.icon" :size="15" :unit="'px'"/><span>{{ connection.name }}</span>
-    </ic-toggle>
-    <ic-toggle-icon v-theme="{color:'primary'}" :icon="'cc-user'" v-model="showProfile" :disabled="noProfile" :size="20"/>
-    <ic-switch v-model="accepted" :disabled="disabled"/>
+  <div class="cc-application-summary">
+    <cc-toggle v-model="showInfo" class="cc-toggle-text">
+      <cc-img :img="application.icon" :size="15" :unit="'px'"/>
+      <span>{{ application.name }}</span>
+    </cc-toggle>
+    <cc-toggle-icon v-theme="{color:'primary'}" :icon="'cc-user'" v-model="showProfile" :disabled="noProfile"
+                    :size="20"/>
+    <cc-switch v-model="accepted" :disabled="disabled"/>
   </div>
 </template>
 
 <script>
 
-  const icToggleImg = require('components/general/ccToggleImg.vue');
-  const icImg = require('components/general/ccImg.vue');
-  const icToggle = require('components/general/ccToggle.vue');
+  const ccImg = require('components/general/ccImg.vue');
+  const ccToggle = require('components/general/ccToggle.vue');
+  const ccToggleIcon = require('components/general/ccToggleIcon.vue');
+  const ccSwitch = require('components/general/ccSwitch.vue');
 
   module.exports = {
-    name: 'ic-connection-summary',
+    name: 'cc-application-summary',
     components: {
-      icToggleImg,
-      icImg,
-      icToggle,
+      ccImg,
+      ccToggle,
+      ccToggleIcon,
+      ccSwitch,
     },
     props: {
-      connection: {
+      application: {
         type: Object,
         required: true,
       },
@@ -78,19 +82,19 @@
       },
       accepted: {
         get() {
-          const state = this.$services.consent.get(this.connection.id);
+          const state = this.$services.consent.get(this.application.id);
           return state.flag === -1 || state.flag === 1;
         },
         set($newVal) {
           if ($newVal === true) {
-            this.$services.consent.accept(this.connection.id);
+            this.$services.consent.accept(this.application.id);
           } else {
-            this.$services.consent.reject(this.connection.id);
+            this.$services.consent.reject(this.application.id);
           }
         },
       },
       disabled() {
-        return this.$services.consent.get(this.connection.id).flag === -1;
+        return this.$services.consent.get(this.application.id).flag === -1;
       },
     },
     data() {
@@ -103,7 +107,7 @@
 
   @import '../../assets/scss/general-variables';
 
-  .ic-connection-summary {
+  .cc-application-summary {
 
     display: flex;
     align-items: center;
@@ -113,7 +117,7 @@
 
     @include default-clearfix();
 
-    .ic-toggle-text {
+    .cc-toggle-text {
       display: flex;
       align-items: center;
       flex: 1;
@@ -126,19 +130,19 @@
       }
     }
 
-    .ic-toggle-icon {
+    .cc-toggle-icon {
       cursor: pointer;
 
-      &.off {
+      &.cc-off {
         color: $cc-brand-color;
       }
 
-      &.disabled {
+      &.cc-disabled {
         display: none;
       }
     }
 
-    .ic-switch {
+    .cc-switch {
       margin: 15px 10px;
       display: inline-block;
       float: right;

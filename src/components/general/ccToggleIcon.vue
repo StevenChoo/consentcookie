@@ -16,12 +16,12 @@
   -->
 
 <template>
-  <i :class="['ic-toggle-icon',icon,state,{'disabled':disabled}]" :style="styleObject" @click="toggle"/>
+  <i :class="['cc-toggle-icon',icon,state,{'cc-disabled':disabled}]" :style="styleObject" @click="toggle"/>
 </template>
 
 <script>
   module.exports = {
-    name: 'ic-toggle-icon',
+    name: 'cc-toggle-icon',
     props: {
       icon: String,
       size: Number,
@@ -50,7 +50,7 @@
         };
       },
       state() {
-        return this.toggleValue ? 'on' : 'off';
+        return this.toggleValue ? 'cc-on' : 'cc-off';
       },
     },
     methods: {
@@ -71,17 +71,17 @@
   $icon-color-on: $cc-brand-color;
   $icon-color-off: $cc-color-dark-grey;
 
-  i.ic-toggle-icon {
+  i.cc-toggle-icon {
 
     transition: color 0.4s;
     cursor: pointer;
     color: $icon-color-on;
 
-    &.off {
+    &.cc-off {
       color: $icon-color-off
     }
 
-    &.disabled {
+    &.cc-disabled {
       cursor: default;
       color: $cc-color-dark-grey !important;
     }

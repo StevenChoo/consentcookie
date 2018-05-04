@@ -16,29 +16,30 @@
   -->
 
 <template>
-  <div class="ic-connection-detail">
+  <div class="cc-application-detail">
     <transition>
-      <div v-if="showDetails" class="wrapper">
-        <div class="divider">
-          <div :class="['pointer',{'right':showProfile},{'left':showInfo}]">
+      <div v-if="showDetails" class="cc-wrapper">
+        <div class="cc-divider">
+          <div :class="['cc-pointer',{'right':showProfile},{'left':showInfo}]">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20"
                  height="10">
               <polyline stroke-linejoin="miter" points="0,10 10,0 20,10" stroke-width="1"/>
             </svg>
           </div>
         </div>
-        <div v-if="showInfo" class="connection-info">
-          <div class="description" v-html="connection.description.connection"/>
-          <ul class="properties">
-            <ic-connection-property v-for="property in connection.properties" :key="property.name"
-                                    :property="property"/>
+        <div v-if="showInfo" class="cc-application-info">
+          <div class="cc-description" v-html="application.description.connection"/>
+          <ul class="cc-properties">
+            <cc-application-property v-for="property in application.properties" :key="property.name"
+                                     :property="property"/>
           </ul>
-          <div class="more-info"><a :href="connection.infolink.connection" target="_blank">Meer informatie over {{ connection.name }}</a></div>
+          <div class="cc-more-info"><a :href="application.infolink.connection"
+                                       target="_blank">Meer informatie over {{ application.name }}</a></div>
         </div>
-        <div v-if="showProfile && hasProfile" class="profile-info">
+        <div v-if="showProfile && hasProfile" class="cc-profile-info">
           <div>
-            <div class="description" v-html="connection.description.profile"/>
-            <ic-connection-profile :connection="connection" :state="state"/>
+            <div class="cc-description" v-html="application.description.profile"/>
+            <cc-application-profile :application="application" :state="state"/>
           </div>
         </div>
       </div>
@@ -48,23 +49,23 @@
 
 <script>
 
-  const icToggleBox = require('components/general/ccToggleBox.vue');
+  const ccToggleBox = require('components/general/ccToggleBox.vue');
 
-  const icConnectionProperty = require('./ccApplicationProperty.vue');
-  const icConnectionProfile = require('components/connections/ccApplicationProfile.vue');
-  const icConnectionActions = require('components/connections/ccApplicationActions.vue');
+  const ccApplicationProperty = require('./ccApplicationProperty.vue');
+  const ccApplicationProfile = require('components/applications/ccApplicationProfile.vue');
+  const ccApplicationActions = require('components/applications/ccApplicationActions.vue');
 
   // Vue module
   module.exports = {
-    name: 'ic-connection-summary',
+    name: 'cc-application-summary',
     components: {
-      icToggleBox,
-      icConnectionProperty,
-      icConnectionProfile,
-      icConnectionActions,
+      ccToggleBox,
+      ccApplicationProperty,
+      ccApplicationProfile,
+      ccApplicationActions,
     },
     props: {
-      connection: {
+      application: {
         type: Object,
         required: true,
       },
@@ -97,12 +98,12 @@
 
   @import '../../assets/scss/general-variables';
 
-  .ic-connection-detail {
+  .cc-application-detail {
 
-    .wrapper {
+    .cc-wrapper {
       padding: 0px 10px 10px;
 
-      .divider {
+      .cc-divider {
         position: relative;
         width: 100%;
         padding: 0px 10px;
@@ -110,7 +111,7 @@
         background: $cc-border-color;
         margin-bottom: 10px;
 
-        .pointer {
+        .cc-pointer {
           position: absolute;
           text-align: center;
           display: none;
@@ -125,23 +126,27 @@
           }
         }
 
-        .pointer.left {
+        .cc-pointer.left {
           display: block;
-          left: 8px;
+          left: 8px !important;
         }
 
-        .pointer.right {
+        .cc-pointer.right {
           display: block;
-          left:208px;
+          left: 222px;
         }
       }
 
-      .properties {
+      .cc-description {
+        text-align: left;
+      }
+
+      .cc-properties {
         padding: 10px;
       }
     }
 
-    .more-info a {
+    .cc-more-info a {
       font-size: 12px;
     }
   }

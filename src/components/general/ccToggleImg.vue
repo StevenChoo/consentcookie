@@ -16,22 +16,22 @@
   -->
 
 <template>
-  <span class="ic-toggle-img" @click="toggle">
-    <ic-img :img="img" :width="width" :height="height"
+  <span class="cc-toggle-img" @click="toggle">
+    <cc-img :img="img" :width="width" :height="height"
             :size="size" :unit="unit"/></span>
 </template>
 
 <script>
 
   // Components
-  const icImg = require('components/general/ccImg.vue');
+  const ccImg = require('components/general/ccImg.vue');
 
   module.exports = {
-    name: 'ic-toggle-img',
+    name: 'cc-toggle-img',
     components: {
-      icImg,
+      ccImg,
     },
-    extends: icImg,
+    extends: ccImg,
     props: {
       value: {
         type: Boolean,
@@ -63,29 +63,3 @@
     },
   };
 </script>
-
-<style lang="scss">
-
-  @import '../../assets/scss/general-variables';
-
-  $icon-color-on: $cc-brand-color;
-  $icon-color-off: $cc-color-dark-grey;
-
-  i.ic-toggle-icon {
-
-    transition: color 0.4s;
-    cursor: pointer;
-
-    &.on {
-      color: $icon-color-on
-    }
-
-    &.off {
-      color: $icon-color-off
-    }
-
-    &.disabled {
-      cursor: default;
-    }
-  }
-</style>

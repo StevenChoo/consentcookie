@@ -16,7 +16,7 @@
   -->
 
 <template>
-  <div class="ic-content-box">
+  <div class="cc-content-box">
     <slot/>
   </div>
 </template>
@@ -31,13 +31,13 @@
 
   @import '../../assets/scss/general-variables';
 
-  .ic-content-box {
+  .cc-content-box {
     margin: 5px;
     padding: 10px 25px;
     border: $cc-box-border;
     border-radius: $cc-box-border-radius;
 
-    .icTitle {
+    .cc-title {
       font-size: 26px;
       font-weight: 600;
       color: $cc-brand-color;

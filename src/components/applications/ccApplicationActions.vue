@@ -16,11 +16,12 @@
   -->
 
 <template>
-  <div class="ic-connection-actions actions">
-    <button v-theme="{color:'primary',borderColor:'primary'}" v-if="connectionPlugin" @click="deleteProfile()"><span v-if="!isDeleting">Verwijder</span><i
+  <div class="cc-application-actions">
+    <button v-theme="{color:'primary',borderColor:'primary'}" v-if="applicationPlugin"
+            @click="deleteProfile()"><span v-if="!isDeleting">Verwijder</span><i
       v-if="isDeleting" class="cc-spinner cc-animate-pulse"/></button>
-    <button v-theme="{color:'primary',borderColor:'primary'}" v-if="connectionPlugin" @click="downloadProfile()"><span v-if="!isDownloading">Download</span><i
-      v-if="isDownloading" class="cc-spinner cc-animate-pulse"/></button>
+    <button v-theme="{color:'primary',borderColor:'primary'}" v-if="applicationPlugin" @click="downloadProfile()"><span
+      v-if="!isDownloading">Download</span><i v-if="isDownloading" class="cc-spinner cc-animate-pulse"/></button>
   </div>
 </template>
 
@@ -30,16 +31,16 @@
   const utils = require('base/utils.js');
 
   // Components
-  const icToggleBox = require('components/general/ccToggleBox.vue');
+  const ccToggleBox = require('components/general/ccToggleBox.vue');
 
   // Vue module
   module.exports = {
-    name: 'ic-connection-profile-actions',
+    name: 'cc-application-profile-actions',
     components: {
-      icToggleBox,
+      ccToggleBox,
     },
     props: {
-      connection: {
+      application: {
         type: Object,
         required: true,
       },
@@ -50,7 +51,7 @@
     },
     data() {
       return {
-        connectionPlugin: null,
+        applicationPlugin: null,
         isDownloading: false,
         isDeleting: false,
       };
@@ -62,11 +63,11 @@
           return;
         }
         self.isDeleting = true;
-        this.connectionPlugin.deleteProfile()
+        this.applicationPlugin.deleteProfile()
           .then(($response) => {
             self.isDeleting = false;
             self.$events.$emit('profile', {
-              id: self.connection.id,
+              id: self.application.id,
               state: 'deleted',
             });
           }, ($error) => {
@@ -80,7 +81,7 @@
           return;
         }
         self.isDownloading = true;
-        this.connectionPlugin.getProfile()
+        this.applicationPlugin.getProfile()
           .then(($profile) => {
             self.isDownloading = false;
 
@@ -95,13 +96,13 @@
     },
     mounted() {
       const self = this;
-      this.$services.connections.getPlugin(this.connection)
+      this.$services.applications.getPlugin(this.application)
         .then(($plugin) => {
           if ($plugin && !($plugin instanceof Error)) {
-            this.connectionPlugin = $plugin;
+            this.applicationPlugin = $plugin;
           }
         }, ($error) => {
-          this.connectionPlugin = null;
+          this.applicationPlugin = null;
         });
     },
   };
@@ -111,7 +112,7 @@
 
   @import '../../assets/scss/general-variables';
 
-  .ic-connection-actions.actions {
+  .cc-application-actions {
     margin: 0px 0px 10px;
 
     @include default-clearfix();
@@ -120,12 +121,16 @@
       float: left;
       width: 45%;
       box-sizing: border-box;
-      padding: 5px 10px;
+      padding: 0px 10px;
+      height: 32px;
+      line-height: 32px;
       background: none;
       border: 1px solid $cc-brand-color;
       border-radius: 3px;
       color: $cc-brand-color;
+      font-size: 13px;
     }
+
     button:last-child {
       float: right;
     }
