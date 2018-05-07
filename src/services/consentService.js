@@ -116,24 +116,24 @@ function init(vueServices) {
 }
 
 function load() {
-  const connectionsConfig = _.clone(vue.$services.config.get(DEFAULT_CONFIG_KEY_APPS_CONSENT));
+  const applicationDefaultConsents = _.clone(vue.$services.config.get(DEFAULT_CONFIG_KEY_APPS_CONSENT));
   const consentCookie = jsCookie.get(DEFAULT_CONSENTCOOKIE_NAME);
 
   consents = Consents.parse(consentCookie);
 
-  _.each(connectionsConfig, ($connectionConfig, $connectionId) => {
-    const curConsent = consents.get($connectionId);
-    const initState = getInitState($connectionConfig.initstate);
+  _.each(applicationDefaultConsents, (applicationDefaultConsent, $applicationId) => {
+    const curConsent = consents.get($applicationId);
+    const initState = getInitState(applicationDefaultConsent.initstate);
 
     if (curConsent === null) {
-      update($connectionId, initState);
+      update($applicationId, initState);
     } else if (DEFAULT_STATE_CONSENT_ALWAYSON === initState) {
       // New settings is, no optin or optout. Override setting
-      update($connectionId, initState);
+      update($applicationId, initState);
     } else if (DEFAULT_STATE_CONSENT_ALWAYSON !== initState
       && curConsent.flag === DEFAULT_STATE_CONSENT_ALWAYSON) {
       // New setting is optin or optout and old was mandatory
-      update($connectionId, initState);
+      update($applicationId, initState);
     }
   });
 }
@@ -163,10 +163,11 @@ function update($id, $flag) {
   }
   save();
 
-  vue.$events.$emit('connection', {
+  const eventData = {
     id: $id,
     state: getState($flag),
-  });
+  };
+  vue.$events.$emit('application', eventData);
 }
 
 function get($id) {

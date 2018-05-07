@@ -22,48 +22,48 @@ const DEFAULT_APPS_ENDPOINT = 'https://www.consentcookie.nl/consentcookie/latest
 const DEFAULT_CONFIG_KEY_APPS_ENDPOINT = 'apps.endpoint';
 
 let vue;
-let connections;
-let activeConnections;
+let applications;
+let activeApplications;
 
 function init(vueServices) {
   vue = vueServices.getVueInstance();
 }
 
-function loadConnections() {
-  if (!connections) {
-    const connectionsUrl = vue.$services.config.get(DEFAULT_CONFIG_KEY_APPS_ENDPOINT, DEFAULT_APPS_ENDPOINT);
-    connections = vue.$http.get(connectionsUrl)
-      .then($connection => ($connection.status === 200 ? $connection.body : []));
+function loadApplications() {
+  if (!applications) {
+    const applicationsUrl = vue.$services.config.get(DEFAULT_CONFIG_KEY_APPS_ENDPOINT, DEFAULT_APPS_ENDPOINT);
+    applications = vue.$http.get(applicationsUrl)
+      .then($request => ($request.status === 200 ? $request.body : []));
   }
-  return connections;
+  return applications;
 }
 
-function getPlugin($connection) {
-  return vue.$services.plugin.getPlugin($connection);
+function getPlugin($application) {
+  return vue.$services.plugin.getPlugin($application);
 }
 
 function getActive() {
-  if (!activeConnections) {
-    activeConnections = loadConnections()
-      .then(($connections) => {
+  if (!activeApplications) {
+    activeApplications = loadApplications()
+      .then(($applications) => {
         const consentConfig = vue.$services.config.get('apps.consent');
         const active = [];
-        const map = _.reduce($connections, ($memo, $connection) => {
-          $memo[$connection.id] = $connection;
+        const map = _.reduce($applications, ($memo, $application) => {
+          $memo[$application.id] = $application;
           return $memo;
         }, {});
 
         _.each(consentConfig, ($consent, $id) => {
-          const connection = map[$id];
+          const application = map[$id];
 
-          if (connection) {
-            active.push(connection);
+          if (application) {
+            active.push(application);
           }
         });
         return active;
       });
   }
-  return activeConnections;
+  return activeApplications;
 }
 
 module.exports = {
