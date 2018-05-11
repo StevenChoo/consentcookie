@@ -43,24 +43,9 @@
     data() {
       return {
         state: {
-          showProfile: false,
           showInfo: false,
-          hasProfile: false,
         },
       };
-    },
-    methods: {},
-    created() {
-      const self = this;
-
-      this.$services.applications.getPlugin(this.application)
-        .then(($plugin) => {
-          if ($plugin && !($plugin instanceof Error)) {
-            self.state.hasProfile = true;
-          }
-        }, ($error) => {
-          self.state.hasProfile = false;
-        });
     },
   };
 </script>

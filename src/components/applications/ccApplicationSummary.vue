@@ -21,8 +21,7 @@
       <cc-img :img="application.icon" :size="15" :unit="'px'"/>
       <span>{{ application.name }}</span>
     </cc-toggle>
-    <cc-toggle-icon v-theme="{color:'primary'}" :icon="'cc-user'" v-model="showProfile" :disabled="noProfile"
-                    :size="20"/>
+    <cc-toggle-icon v-theme="{color:'primary'}" :icon="'cc-user'" v-model="showInfo" :disabled="!hasPlugin" :size="20"/>
     <cc-switch v-model="accepted" :disabled="disabled"/>
   </div>
 </template>
@@ -52,10 +51,10 @@
         required: true,
       },
     },
+    data() {
+      return {};
+    },
     computed: {
-      noProfile() {
-        return !(this.state.hasProfile === true);
-      },
       showInfo: {
         get() {
           return this.state.showInfo;
@@ -68,37 +67,25 @@
           }
         },
       },
-      showProfile: {
-        get() {
-          return this.state.showProfile;
-        },
-        set($newVal) {
-          this.state.showProfile = $newVal;
-
-          if ($newVal === true) {
-            this.state.showInfo = false;
-          }
-        },
-      },
       accepted: {
         get() {
-          const state = this.$services.consent.get(this.application.id);
-          return state.flag === -1 || state.flag === 1;
+          return this.$services.applications.isAccepted(this.application);
         },
         set($newVal) {
-          if ($newVal === true) {
-            this.$services.consent.accept(this.application.id);
-          } else {
-            this.$services.consent.reject(this.application.id);
-          }
+          this.$services.applications.setAccepted(this.application, $newVal);
         },
       },
       disabled() {
-        return this.$services.consent.get(this.application.id).flag === -1;
+        return this.$services.applications.isDisabled(this.application);
       },
     },
-    data() {
-      return {};
+    asyncComputed: {
+      hasPlugin: {
+        get() {
+          return this.$services.applications.hasPlugin(this.application);
+        },
+        default: false,
+      },
     },
   };
 </script>

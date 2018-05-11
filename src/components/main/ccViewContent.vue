@@ -93,6 +93,7 @@
       overflow-y: scroll;
 
       .cc-view-scrollcontent {
+        position: relative;
         overflow: hidden;
       }
     }

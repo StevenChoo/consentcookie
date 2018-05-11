@@ -20,7 +20,7 @@
     <transition>
       <div v-if="showDetails" class="cc-wrapper">
         <div class="cc-divider">
-          <div :class="['cc-pointer',{'right':showProfile},{'left':showInfo}]">
+          <div :class="['cc-pointer']">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20"
                  height="10">
               <polyline stroke-linejoin="miter" points="0,10 10,0 20,10" stroke-width="1"/>
@@ -28,18 +28,11 @@
           </div>
         </div>
         <div v-if="showInfo" class="cc-application-info">
-          <div class="cc-description" v-html="application.description.connection"/>
-          <ul class="cc-properties">
-            <cc-application-property v-for="property in application.properties" :key="property.name"
-                                     :property="property"/>
-          </ul>
-          <div class="cc-more-info"><a :href="application.infolink.connection"
-                                       target="_blank">Meer informatie over {{ application.name }}</a></div>
-        </div>
-        <div v-if="showProfile && hasProfile" class="cc-profile-info">
-          <div>
-            <div class="cc-description" v-html="application.description.profile"/>
-            <cc-application-profile :application="application" :state="state"/>
+          <div class="cc-description" v-html="application.description"/>
+          <cc-application-profile :application="application" :state="state"/>
+          <cc-application-actions :application="application" :state="state"/>
+          <div class="cc-more-info">
+            <a :href="application.links.site" target="_blank">Meer informatie over {{ application.name }}</a>
           </div>
         </div>
       </div>
@@ -89,7 +82,10 @@
       },
     },
     data() {
-      return {};
+      return {
+        appProfileInfo:null,
+        appPlugin:null,
+      };
     },
   };
 </script>
@@ -112,9 +108,10 @@
         margin-bottom: 10px;
 
         .cc-pointer {
+          display: block;
+          left: 8px !important;
           position: absolute;
           text-align: center;
-          display: none;
           transition: all 0.4s ease;
 
           svg {
@@ -124,16 +121,6 @@
             stroke: $cc-border-color;
             fill: $cc-color-white;
           }
-        }
-
-        .cc-pointer.left {
-          display: block;
-          left: 8px !important;
-        }
-
-        .cc-pointer.right {
-          display: block;
-          left: 222px;
         }
       }
 

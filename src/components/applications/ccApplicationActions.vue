@@ -17,18 +17,16 @@
 
 <template>
   <div class="cc-application-actions">
-    <button v-theme="{color:'primary',borderColor:'primary'}" v-if="applicationPlugin"
-            @click="deleteProfile()"><span v-if="!isDeleting">Verwijder</span><i
-      v-if="isDeleting" class="cc-spinner cc-animate-pulse"/></button>
-    <button v-theme="{color:'primary',borderColor:'primary'}" v-if="applicationPlugin" @click="downloadProfile()"><span
-      v-if="!isDownloading">Download</span><i v-if="isDownloading" class="cc-spinner cc-animate-pulse"/></button>
+    <button class="cc-contact" v-theme="{color:'primary',borderColor:'primary'}" @click="contact()">
+      <span>Recht op...</span>
+    </button>
   </div>
 </template>
 
 <script>
 
   // Libraries
-  const utils = require('base/utils.js');
+  // const utils = require('base/utils.js');
 
   // Components
   const ccToggleBox = require('components/general/ccToggleBox.vue');
@@ -51,59 +49,14 @@
     },
     data() {
       return {
-        applicationPlugin: null,
         isDownloading: false,
         isDeleting: false,
       };
     },
     methods: {
-      deleteProfile() {
-        const self = this;
-        if (self.isDeleting) {
-          return;
-        }
-        self.isDeleting = true;
-        this.applicationPlugin.deleteProfile()
-          .then(($response) => {
-            self.isDeleting = false;
-            self.$events.$emit('profile', {
-              id: self.application.id,
-              state: 'deleted',
-            });
-          }, ($error) => {
-            console.log('Error deleting: ' + $error);
-            self.isDeleting = false;
-          });
+      contact() {
+        window.open(this.application.links.contact, '_blank');
       },
-      downloadProfile() {
-        const self = this;
-        if (self.isDownloading) {
-          return;
-        }
-        self.isDownloading = true;
-        this.applicationPlugin.getProfile()
-          .then(($profile) => {
-            self.isDownloading = false;
-
-            if ($profile) {
-              utils.download(JSON.stringify($profile, null, 3), 'application/json', 'iq-profile.json');
-            }
-          }, ($error) => {
-            console.log('Error downloading: ' + $error);
-            self.isDownloading = false;
-          });
-      },
-    },
-    mounted() {
-      const self = this;
-      this.$services.applications.getPlugin(this.application)
-        .then(($plugin) => {
-          if ($plugin && !($plugin instanceof Error)) {
-            this.applicationPlugin = $plugin;
-          }
-        }, ($error) => {
-          this.applicationPlugin = null;
-        });
     },
   };
 </script>
@@ -131,7 +84,7 @@
       font-size: 13px;
     }
 
-    button:last-child {
+    button.cc-download {
       float: right;
     }
   }

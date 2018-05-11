@@ -16,20 +16,27 @@
   -->
 
 <template>
-  <div v-if="hasPlugin">
-    <div class="cc-application-profile">
+  <div class="cc-profile-wrapper">
+    <div class="cc-title">
+      <span>Jouw profiel</span>
+      <button class="cc-download" v-if="profile" @click="downloadProfile()">
+        <i class="cc-download-cloud" v-theme="{color:'primary'}" v-if="!isDownloading"/>
+        <i class="cc-spinner cc-animate-pulse" v-if="isDownloading" v-theme="{color:'primary'}"/>
+      </button>
+    </div>
+    <div class="cc-no-profile" v-if="!hasPlugin">Deze applicatie heeft geen publiek profiel beschikbaar</div>
+    <div class="cc-application-profile" v-if="hasPlugin">
       <div v-if="isLoading" class="cc-loading">Profiel wordt opgehaald <i
         class="cc-spinner cc-animate-pulse animate-spin"/>
       </div>
-      <cc-toggle-box v-if="hasProfile && !isLoading">
+      <cc-toggle-box v-if="profileInfo && !isLoading">
         <div slot="header" class="cc-box-header" v-html="profileInfo.header"/>
         <div slot="content" class="cc-box-content">
           <div v-html="profileInfo.content"/>
         </div>
       </cc-toggle-box>
-      <div v-if="!hasProfile && !isLoading" class="cc-no-profile">Geen profiel beschikbaar</div>
+      <div v-if="!profileInfo && !isLoading" class="cc-no-profile">Geen profiel beschikbaar</div>
     </div>
-    <cc-application-actions v-if="hasProfile && !isLoading" :application="application" :state="state"/>
   </div>
 </template>
 
@@ -38,24 +45,6 @@
   // Libraries
   const ccToggleBox = require('components/general/ccToggleBox.vue');
   const ccApplicationActions = require('components/applications/ccApplicationActions.vue');
-
-  function loadProfile() {
-    const self = this;
-
-    self.isLoading = true;
-    self.hasProfile = false;
-
-    this.applicationPlugin.getProfileInfo()
-      .then(($profileInfo) => {
-        self.profileInfo = $profileInfo;
-        self.hasProfile = ($profileInfo != null);
-        self.isLoading = false;
-      }, ($error) => {
-        console.log('error loading profile: ' + $error);
-        self.isLoading = false;
-        self.hasProfile = false;
-      });
-  }
 
   // Vue module
   module.exports = {
@@ -74,9 +63,6 @@
         required: true,
       },
     },
-    methods: {
-      loadProfile,
-    },
     data() {
       return {
         applicationPlugin: null,
@@ -84,26 +70,30 @@
         isLoading: false,
         hasPlugin: false,
         hasProfile: false,
+        isDownloading: false,
       };
     },
+    asyncComputed: {
+      hasPlugin: {
+        get() {
+          return this.$services.applications.hasPlugin(this.application);
+        },
+        default: false,
+      },
+      profile() {
+        return this.$services.applications.getApplicationProfile(this.application);
+      },
+      profileInfo() {
+        return this.$services.applications.getApplicationProfileInfo(this.application);
+      },
+    },
+    methods: {
+      downloadProfile() {
+        return this.$services.applications.downloadApplicationProfile(this.application);
+      },
+    },
     mounted() {
-      const self = this;
 
-      self.$services.plugin.getPlugin(self.application)
-        .then(($plugin) => {
-          if ($plugin && !($plugin instanceof Error)) {
-            self.applicationPlugin = $plugin;
-            self.hasPlugin = true;
-            self.loadProfile();
-          }
-        }, ($error) => {
-          self.hasPlugin = false;
-        });
-      self.$events.$on('profile', ($payload) => {
-        if ($payload.state === 'deleted') {
-          self.loadProfile();
-        }
-      });
     },
   };
 </script>
@@ -112,9 +102,38 @@
 
   @import '../../assets/scss/general-variables';
 
-  .cc-application-profile {
+  .cc-profile-wrapper {
+    margin: 10px 0px 15px;
+  }
 
-    margin: 15px 0px;
+  .cc-title {
+    @include default-clearfix();
+
+    span {
+      display: inline-block;
+      float: left;
+      font-weight: 600;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    button {
+      display: inline-block;
+      float: right;
+      background: none;
+      width: 36px;
+      text-align: center;
+      height: 30px;
+      line-height: 30px;
+      cursor: pointer;
+    }
+  }
+
+  .cc-no-profile {
+    font-style: italic;
+  }
+
+  .cc-application-profile {
     border: $cc-box-border;
     font-size: 13px;
     text-align: left;
