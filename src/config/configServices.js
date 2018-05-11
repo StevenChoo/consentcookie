@@ -47,6 +47,9 @@ function configVueServices(vue) {
   }, {
     name: 'plugin',
     service: require('services/pluginService.js'),
+  }, {
+    name: 'log',
+    service: require('services/logService.js'),
   }];
 
   return new VueServices(services);

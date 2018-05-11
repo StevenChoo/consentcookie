@@ -37,6 +37,27 @@ function getObjectValue($object, $nameSpace, $default) {
   return object;
 }
 
+function getDomainTree() {
+  const domainTree = [];
+
+  if (!window || !window.location || typeof window.location.hostname !== 'string') {
+    return domainTree;
+  }
+  const hostParts = window.location.hostname.split('.');
+
+  for (let n = 0; n < hostParts.length; n++) {
+    const domain = hostParts.slice(n)
+      .join('.');
+    if (n === hostParts.length - 2) {
+      // Host portion current domain
+      domainTree.push('.' + domain);
+      return domainTree;
+    }
+    domainTree.push(domain);
+  }
+  return domainTree;
+}
+
 function download($object, $type, $filename) {
   if (!window || !window.Blob) {
     throw new Error('Download is not supported.');
@@ -68,4 +89,5 @@ module.exports = {
   download,
   getObjectValue,
   logErrorOrThrowException,
+  getDomainTree,
 };

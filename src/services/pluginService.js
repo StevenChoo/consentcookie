@@ -122,13 +122,13 @@ function getPlugin($application) {
     if (!(_.isString($application.id))) {
       return $reject(new Error('No plugin available. Missing id.'));
     }
-    if (!(_.isString($application.plugin))) {
+    if (!(_.isString($application.links.plugin))) {
       return $reject(new Error('No plugin available. Missing path.'));
     }
     if (pluginCache[$application.id]) {
       return $resolve(pluginCache[$application.id]);
     }
-    return loadPlugin($application.id, $application.plugin)
+    return loadPlugin($application.id, $application.links.plugin)
       .then($plugin => $resolve($plugin), $error => $reject($error));
   });
 }
