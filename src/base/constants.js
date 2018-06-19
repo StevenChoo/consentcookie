@@ -149,5 +149,47 @@ export const DEFAULT_CONFIG = {
         infolink: 'https://www.consentcookie.nl',
       },
     },
+    en: {
+      general: {
+        on: 'On',
+        off: 'Off',
+        moreInfo: 'More information',
+      },
+      menu: {
+        applications: 'Your settings',
+        about: 'About ConsentCookie',
+        open: 'Open ConsentCookie',
+        close: 'Close ConsentCookie',
+        disabled: 'You need to accept first',
+      },
+      applications: {
+        title: 'Your settings',
+        moreInfo: 'More information about these applications',
+        moreInfoLink: 'https://www.consentcookie.nl',
+        actions: {
+          gdpr: 'Your GDPR rights...',
+        },
+        detail: {
+          moreInfo: 'More information about',
+          gdprInfo: 'Contact about your GDPR rights',
+        },
+        profile: {
+          title: 'Your profile',
+          loading: 'Retrieving profile',
+          noPlugin: 'This application has no public profile available',
+          noProfile: 'No profile available',
+        },
+      },
+      about: {
+        title: 'About ConsentCookie',
+        text: DEFAULT_RESOURCES_ABOUT_TEXT,
+      },
+      consent: {
+        title: 'ConsentCookie!',
+        text: DEFAULT_RESOURCES_CONSENT_TEXT,
+        button: 'Ok!',
+        infolink: 'https://www.consentcookie.nl',
+      },
+    },
   },
 };
