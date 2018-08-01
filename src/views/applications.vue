@@ -18,10 +18,12 @@
 <template>
   <div class="cc-applications">
     <div class="cc-overview" v-if="applicationList && !isGroupedByPurpose">
-      <cc-application v-for="application in applicationList.getActive()" :key="application.id" :application="application"/>
+      <cc-application v-for="application in applicationList.getActive()" :key="application.id"
+                      :application="application"/>
     </div>
     <div class="cc-overview-purpose" v-if="applicationList && isGroupedByPurpose">
-      <cc-application-group v-for="group in applicationList.getActiveGroupedByPurpose()" :group="group"/>
+      <cc-application-group v-for="group in applicationList.getActiveGroupedByPurpose()" :key="group.id"
+                            :group="group"/>
     </div>
     <div class="cc-more-info">
       <a v-if="hasMoreInfoLink" :href="$t(configKeyMoreInfoLink)">{{ $t(configKeyMoreInfo) }}</a>
@@ -31,16 +33,15 @@
 <script>
 
   import _ from 'underscore';
-  import * as constants from 'base/constants.js';
-  import ccApplication from 'components/applications/ccApplication.vue';
-  import ccApplicationGroup from 'components/applications/ccApplicationGroup.vue';
-  import app from '../app';
+  import * as constants from 'base/constants';
+  import ccApplication from 'components/applications/ccApplication';
+  import ccApplicationGroup from 'components/applications/ccApplicationGroup';
 
   export default {
     name: 'applications',
     components: {
       ccApplication,
-      ccApplicationGroup
+      ccApplicationGroup,
     },
     data() {
       return {
@@ -62,14 +63,20 @@
     },
     asyncComputed: {
       applicationList: {
-        get () {
+        get() {
           return this.$services.applications.getApplicationListAsync();
         },
+        // The computed proporty `blogPostContent` will have
+        // the value 'Loading...' until the first time the promise
+        // returned from the `get` function resolves.
         default: null,
       },
     },
     beforeMount() {
       this.$store.commit('updateView', { title: constants.CONFIG_KEY_RESOURCES_APPLICATIONS_TITLE });
+    },
+    mounted() {
+      window.steven = this;
     },
   };
 </script>
@@ -102,3 +109,4 @@
     }
   }
 </style>
+0

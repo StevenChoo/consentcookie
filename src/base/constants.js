@@ -73,6 +73,7 @@ export const DEFAULT_CONSENTCOOKIE_COOKIE_VAL_ALWAYSON = -1;
 
 export const DEFAULT_CONSENTS_SEPERATOR = '&';
 export const DEFAULT_CONSENT_SEPERATOR = '=';
+export const DEFAULT_CONSENT_PURPOSES_ID_PREFIX = 'ccp-';
 
 export const DEFAULT_CONSENT_INIT_STATE_OPTIN = DEFAULT_CONSENTCOOKIE_COOKIE_VAL_REJECTED;
 export const DEFAULT_CONSENT_INIT_STATE_OPTOUT = DEFAULT_CONSENTCOOKIE_COOKIE_VAL_ACCEPTED;
@@ -156,6 +157,11 @@ export const DEFAULT_CONFIG = {
           loading: 'Profiel wordt opgehaald',
           noPlugin: 'Deze applicatie heeft geen publiek profiel beschikbaar',
           noProfile: 'Geen profiel beschikbaar',
+        },
+        group: {
+          summary: {
+            subtitle: '{active} van de {total} actief',
+          },
         },
       },
       about: {

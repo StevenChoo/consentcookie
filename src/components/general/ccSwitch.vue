@@ -20,6 +20,7 @@
     <span v-theme="{background:'primary'}">
       <div class="cc-state cc-on">{{onTitle}}</div>
       <div class="cc-state cc-off" v-theme="{color:'primary'}">{{offTitle}}</div>
+      <div class="cc-state cc-off" v-theme="{color:'primary'}">{{offTitle}}</div>
       <div class="cc-switch-toggle" v-theme="{borderColor:'primary'}"/>
     </span>
   </label>
@@ -41,7 +42,7 @@
   export default {
     name: 'cc-switch',
     props: {
-      value: Boolean,
+      value: [Boolean,Object],
       disabled: Boolean,
       onTitle: {
         type: String,
