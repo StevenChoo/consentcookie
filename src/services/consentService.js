@@ -22,18 +22,13 @@ import * as constants from 'base/constants';
 
 class Consents {
 
-  constructor($ccCookies) {
+  constructor($ccCookie) {
     const consents = {};
+    const ccCookie = _.clone($ccCookie);
 
-    this.getCookieValues = function () {
-      return _.clone($ccCookies);
-    };
-    this.get = function ($id) {
-      return _.isString($id) ? consents[$id] : _.values(consents);
-    };
-    this.getConsentMap = function () {
-      return consents;
-    };
+    this.getCookie = () => ccCookie;
+    this.get = $id => (_.isString($id) ? consents[$id] : _.values(consents));
+    this.getConsentMap = () => consents;
   }
 
   getAccepted() {
@@ -53,7 +48,7 @@ class Consents {
   serialize() {
     const toSerialize = _.clone(this.getConsentMap());
     // Add all `stale` consents so that we aren`t overriding values
-    _.each(this.getCookieValues(), ($ccAppValue, $ccAppId) => {
+    _.each(this.getCookie(), ($ccAppValue, $ccAppId) => {
       if (!toSerialize[$ccAppId]) {
         toSerialize[$ccAppId] = new Consent($ccAppId, $ccAppValue);
       }
@@ -106,11 +101,11 @@ class Consent {
     return this.isAccepted() || this.isAlwaysOn();
   }
 
-  static create($ccAppId, $ccAppVal, $ccCookieMap) {
-    if (!(_.isString($ccAppId)) && !(_.isObject($ccAppVal))) {
+  static create($consentId, $ccAppVal, $ccCookieMap) {
+    if (!(_.isString($consentId)) && !(_.isObject($ccAppVal))) {
       return null;
     }
-    return new Consent($ccAppId, getConsentValue($ccAppId, $ccAppVal, $ccCookieMap));
+    return new Consent($consentId, getConsentValue($consentId, $ccAppVal, $ccCookieMap));
   }
 
 }
@@ -123,20 +118,20 @@ function init(vueServices) {
 }
 
 function getConsentValue($ccAppId, $ccAppVal, $ccCookieVal) {
-  const $ccAppInitState = getInitState($ccAppVal.initstate);
-  let $ccCookieConsentVal = $ccCookieVal[$ccAppId];
+  const ccAppInitState = getInitState($ccAppVal.initstate);
+  let ccCookieConsentVal = $ccCookieVal[$ccAppId];
 
-  if (typeof $ccCookieConsentVal === 'undefined' || $ccCookieConsentVal == null) {
-    $ccCookieConsentVal = $ccAppInitState;
-  } else if (constants.DEFAULT_CONSENT_INIT_STATE_ALWAYSON === $ccAppInitState) {
+  if (typeof ccCookieConsentVal === 'undefined' || ccCookieConsentVal == null) {
+    ccCookieConsentVal = ccAppInitState;
+  } else if (constants.DEFAULT_CONSENT_INIT_STATE_ALWAYSON === ccAppInitState) {
     // New settings is, no optin or optout. Override setting
-    $ccCookieConsentVal = $ccAppInitState;
-  } else if (constants.DEFAULT_CONSENT_INIT_STATE_ALWAYSON !== $ccAppInitState
-    && $ccCookieConsentVal === constants.DEFAULT_CONSENT_INIT_STATE_ALWAYSON) {
+    ccCookieConsentVal = ccAppInitState;
+  } else if (constants.DEFAULT_CONSENT_INIT_STATE_ALWAYSON !== ccAppInitState
+    && ccCookieConsentVal === constants.DEFAULT_CONSENT_INIT_STATE_ALWAYSON) {
     // New setting is optin or optout and old was mandatory
-    $ccCookieConsentVal = $ccAppInitState;
+    ccCookieConsentVal = ccAppInitState;
   }
-  return $ccCookieConsentVal;
+  return ccCookieConsentVal;
 }
 
 function getCCCookieMap() {
