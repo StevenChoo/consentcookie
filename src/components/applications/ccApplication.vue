@@ -17,7 +17,7 @@
 
 <template>
   <div class="cc-application">
-    <cc-application-summary :application="application" :state="state" @update="state"/>
+    <cc-application-summary :application="application" :state="state"/>
     <cc-application-detail :application="application" :state="state"/>
   </div>
 </template>
