@@ -66,6 +66,7 @@
     created() {
       this.$services.config.load(this.config);
       this.$services.consent.load();
+      debugger;
     },
   };
 </script>

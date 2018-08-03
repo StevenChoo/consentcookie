@@ -17,9 +17,10 @@
 
 <template>
   <div :class="['cc-toggle-box',{'cc-box-border':border}]">
-    <div class="cc-box-header">
+    <div class="cc-box-header" @click="toggle">
       <slot class="cc-content" name="header"/>
-      <i :class="[{'cc-angle-down':!isOpen},{'cc-angle-up':isOpen}]" @click="toggle()"/>
+      <font-awesome-icon :icon="icons.faAngleUp" v-if="isOpen" class="cc-toggle-icon"/>
+      <font-awesome-icon :icon="icons.faAngleDown" v-if="!isOpen" class="cc-toggle-icon"/>
     </div>
     <div v-show="isOpen" class="cc-box-content">
       <slot name="content"/>
@@ -58,25 +59,22 @@
     }
 
     .cc-box-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
 
       @include default-clearfix();
 
       *:first-child {
-        float: left;
         height: 40px;
         min-height: 40px;
         line-height: 40px;
-        width: calc(100% - 30px);
+        flex: 1 0 0;
       }
 
-      > i {
-        float: left;
-        height: 40px;
-        line-height: 40px;
+      > .cc-toggle-icon {
         width: 30px;
-        text-align: center;
-        font-size: 20px;
-        cursor: pointer;
+        font-size: 16px;
       }
     }
   }

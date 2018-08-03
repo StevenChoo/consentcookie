@@ -43,15 +43,12 @@
 
 <script>
 
-  import ccToggleBox from 'components/general/ccToggleBox';
-
   import ccApplicationProfile from 'components/applications/ccApplicationProfile';
 
   // Vue module
   export default {
     name: 'cc-application-summary',
     components: {
-      ccToggleBox,
       ccApplicationProfile,
     },
     props: {

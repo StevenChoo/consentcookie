@@ -19,8 +19,12 @@
   <router-link :to="data.path" :title="$t(data.info)" class="cc-menu-item"
                tag="div" v-theme="{borderColor:'secondary'}">
     <div class="cc-fill" v-theme="{background:'secondary'}"/>
-    <i :class="['cc-' + data.icon,'cc-active']" :style="{styleObj}" aria-hidden="true" v-theme="{color:'primary'}"/>
-    <i :class="['cc-' + data.icon]" :style="{styleObj}" aria-hidden="true" v-theme="{color:'secondary'}"/>
+    <span class="cc-menu-icon cc-active" v-theme="{color:'primary'}">
+      <font-awesome-icon :icon="icons[data.icon]" scale="2"></font-awesome-icon>
+    </span>
+    <span class="cc-menu-icon" v-theme="{color:'secondary'}">
+      <font-awesome-icon :icon="icons[data.icon]" scale="1"></font-awesome-icon>
+    </span>
   </router-link>
 </template>
 
@@ -106,16 +110,18 @@
       background: none;
     }
 
-    i {
-      font-size: 24px;
+    .cc-menu-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: $cc-color-white;
 
-      &:before {
-        line-height: inherit;
+      svg{
+        font-size: 20px;
       }
     }
 
-    i.cc-active {
+    .cc-menu-icon.cc-active {
       display: none;
     }
   }
@@ -129,13 +135,13 @@
         background: $cc-color-white;
       }
 
-      i {
+      .cc-menu-icon {
         color: $cc-brand-color;
         display: none;
       }
 
-      i.cc-active {
-        display: inline;
+      .cc-menu-icon.cc-active {
+        display: flex;
       }
     }
   }

@@ -21,8 +21,8 @@
       <cc-img :img="logo" :size="15" :unit="'px'"/>
       <span>{{ application.name }}</span>
     </cc-toggle>
-    <cc-toggle v-model="showInfo" class="cc-toggle-icon" v-if="hasPlugin">
-      <i :class="['cc-user']" />
+    <cc-toggle v-model="showInfo" class="cc-toggle-icon" v-if="hasPlugin" v-theme="{color:'primary'}">
+      <font-awesome-icon :icon="icons.faUser"/>
     </cc-toggle>
     <cc-switch v-model="accepted" :disabled="disabled" :on-title="$t('general.on')" :off-title="$t('general.off')"/>
   </div>
@@ -118,8 +118,8 @@
 
     .cc-toggle-icon {
 
-      i{
-        font-size: 20px;
+      svg {
+        font-size: 16px;
         color: $cc-brand-color;
       }
     }

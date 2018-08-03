@@ -22,8 +22,11 @@ let vue;
 
 function setTheme($el, $mapping, $type, $color) {
   if (!(_.isObject($mapping))) {
+    console.log("setting theme");
     return;
   }
+
+  console.log("setting theme");
 
   _.each($mapping, ($val, $key) => {
     if ($val.indexOf($type) >= 0) {

@@ -41,11 +41,11 @@
   import ccSvgClose from '../../assets/img/close.svg';
 
   const menuItems = [{
-    icon: 'toggle-on',
+    icon: 'faToggleOn',
     path: '/applications',
     info: 'menu.applications',
   }, {
-    icon: 'help',
+    icon: 'faQuestion',
     iconSize: '30',
     path: '/about',
     info: 'menu.about',

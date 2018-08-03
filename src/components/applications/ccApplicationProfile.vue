@@ -19,18 +19,17 @@
   <div class="cc-profile-wrapper">
     <div class="cc-title">
       <span v-t="'applications.profile.title'"/>
-      <button type="button" class="cc-download" v-if="profileInfo" @click="downloadProfile()">
-        <i class="cc-download-cloud" v-theme="{color:'primary'}" v-if="!isDownloading"/>
-        <i class="cc-spinner cc-animate-pulse" v-if="isDownloading" v-theme="{color:'primary'}"/>
+      <button type="button" class="cc-download" v-if="profileInfo" @click="downloadProfile()"
+              v-theme="{color:'primary'}">
+        <font-awesome-icon :icon="icons.faCloudDownloadAlt" v-if="!isDownloading"></font-awesome-icon>
+        <font-awesome-icon :icon="icons.faSpinner" v-if="isDownloading" spin></font-awesome-icon>
       </button>
     </div>
     <div class="cc-no-profile" v-if="!hasPlugin">
       <span v-t="'applications.profile.noPlugin'"/>
     </div>
     <div class="cc-application-profile" v-if="hasPlugin">
-      <div v-if="isLoading" class="cc-loading">{{ $t('applications.profile.loading') + ' '}}<i
-        class="cc-spinner cc-animate-pulse animate-spin"/>
-      </div>
+      <div v-if="isLoading" class="cc-loading">{{ $t('applications.profile.loading')}}<font-awesome-icon :icon="icons.faSpinner" spin></font-awesome-icon></div>
       <cc-toggle-box v-if="profileInfo && !isLoading">
         <div slot="header" class="cc-box-header" v-html="profileInfo.header"/>
         <div slot="content" class="cc-box-content">
@@ -140,6 +139,10 @@
       cursor: pointer;
       border: none!important;
       box-shadow: none!important;
+
+      svg{
+        color: inherit;
+      }
     }
   }
 
@@ -155,8 +158,14 @@
     .cc-loading,
     .cc-no-profile {
       height: 40px;
-      line-height: 40px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg{
+        margin-left: 5px;
+        font-size: 12px;
+      }
     }
 
     .cc-box-header {

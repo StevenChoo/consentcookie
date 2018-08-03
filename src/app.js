@@ -19,7 +19,6 @@
 import mutationObserverShim from 'mutationobserver-shim';
 import promisePolyfill from 'promise-polyfill';
 
-import icons from 'assets/fonts/fontello/css/fontello.css';
 import css from 'assets/scss/_consentcookie.scss';
 
 // Vue Framework
@@ -28,6 +27,7 @@ import vueState from 'config/configState';
 import vueRouter from 'config/configRouter';
 import vueServices from 'config/configServices';
 import vueI18n from 'config/configI18n';
+import vueFontAwesome from 'config/configFontAwesome';
 import vueResources from 'vue-resource';
 import vueEvents from 'vue-events';
 import vueAsyncComputed from 'vue-async-computed';
@@ -72,6 +72,8 @@ function initVue($config) {
   const router = vueRouter(vue);
   const i18n = vueI18n(vue);
   const services = vueServices(vue);
+  const fontAwesome = vueFontAwesome(vue);
+
   vue.use(vueResources);
   vue.use(vueEvents);
   vue.use(vueAsyncComputed);

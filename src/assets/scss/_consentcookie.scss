@@ -17,22 +17,6 @@
 /* Imports */
 @import 'general-variables';
 
-// Font animations
-.cc-animate-pulse {
-  animation: cc-spin 1s infinite steps(8);
-  display: inline-block;
-}
-
-@keyframes cc-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(359deg);
-  }
-}
-
 // Animation keyframes
 @keyframes ccSlideInRight {
   from {
@@ -122,5 +106,10 @@
 
   &.cc-left .ccSlideOut {
     animation-name: ccSlideOutLeft;
+  }
+
+  // FontAwesome
+  .svg-inline--fa {
+    color: inherit;
   }
 }
