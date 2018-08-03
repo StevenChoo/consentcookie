@@ -26,6 +26,7 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const env = config.build.env;
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -78,6 +79,7 @@ const webpackConfig = merge(baseWebpackConfig, {
           discardComments: { removeAll: true }
         }
     }),
+    new CssoWebpackPlugin({ pluginOutputPostfix: 'min' })
   ]
 });
 

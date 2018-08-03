@@ -70,6 +70,9 @@
     beforeMount() {
       this.$store.commit('updateView', { title: constants.CONFIG_KEY_RESOURCES_APPLICATIONS_TITLE });
     },
+    created(){
+      window.steven = this;
+    }
   };
 </script>
 

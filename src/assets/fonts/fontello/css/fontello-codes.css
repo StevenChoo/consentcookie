@@ -1,6 +1,11 @@
 
+.cc-cog-alt:before { content: '\e800'; } /* '' */
+.cc-bullhorn:before { content: '\e801'; } /* '' */
+.cc-share:before { content: '\e802'; } /* '' */
+.cc-chart-bar:before { content: '\e803'; } /* '' */
 .cc-user:before { content: '\e81d'; } /* '' */
 .cc-ok:before { content: '\e827'; } /* '' */
+.cc-exchange:before { content: '\f0ec'; } /* '' */
 .cc-download-cloud:before { content: '\f0ed'; } /* '' */
 .cc-angle-up:before { content: '\f106'; } /* '' */
 .cc-angle-down:before { content: '\f107'; } /* '' */

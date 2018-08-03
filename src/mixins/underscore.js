@@ -43,18 +43,6 @@ _.mixin({
     }
     return $target;
   },
-  toMap: ($collection, $fn, $memo) => {
-    const memo = $memo || {};
-    const mapFn = _.isFunction($fn) ? $fn : ($value, $index) => $index;
-
-    return _.reduce($collection, ($memo, $value, $index) => {
-      const id = mapFn($value, $index);
-      if (typeof id !== 'undefined' && id !== null) {
-        memo[id] = $value;
-      }
-      return memo;
-    }, memo);
-  }
 });
 
 export default _;

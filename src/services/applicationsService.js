@@ -24,28 +24,34 @@ import * as constants from 'base/constants';
 
 const DEFAULT_PURPOSE_UNDEFINED = {
   id: 'ccp-ot',
-  name: 'Other'
+  name: 'Other',
 };
 
 let vue;
 let applicationListAsync;
 
 class ApplicationGroup {
+
   constructor($groupDefinition, $items) {
     this.definition = $groupDefinition;
     this.items = _.isArray($items) ? $items : [];
   }
+
+  getTotalCount() {
+    return this.items.length;
+  }
+
 }
 
 class ApplicationList {
 
   constructor($remoteApps, $staticApps, $consentConfigs) {
-    this.remoteApps = _.map($remoteApps, ($app) => new Application($app));
-    this.staticApps = _.map($staticApps, ($app) => new Application($app));
+    this.remoteApps = _.map($remoteApps, $app => new Application($app));
+    this.staticApps = _.map($staticApps, $app => new Application($app));
     this.consentConfigs = $consentConfigs;
 
-    this.remoteAppsMap = _.toMap(this.remoteApps, ($app) => $app && !(_.isEmpty($app.id)) ? $app.id : null);
-    this.staticAppsMap = _.toMap(this.staticApps, ($app) => $app && !(_.isEmpty($app.id)) ? $app.id : null);
+    this.remoteAppsMap = _.indexBy(this.remoteApps, $app => $app.id);
+    this.staticAppsMap = _.indexBy(this.staticApps, $app => $app.id);
   }
 
   get($id) {
@@ -60,9 +66,7 @@ class ApplicationList {
     }
     const selectedDataProcessings = this.getConfiguredDataProcessings($id);
     return _.chain(app.dataProcessings)
-      .filter(($dataProcessing) => {
-        return _.isEmpty(selectedDataProcessings) ? true : _.contains(selectedDataProcessings, $dataProcessing.id);
-      })
+      .filter($dataProcessing => (_.isEmpty(selectedDataProcessings) ? true : _.contains(selectedDataProcessings, $dataProcessing.id)))
       .map($dataProcessing => $dataProcessing.purposes)
       .flatten()
       .unique(false, $purpose => $purpose.id)
@@ -73,44 +77,41 @@ class ApplicationList {
     return utils.getObjectValue(this.consentConfigs, $id + '.dataProcessings', []);
   }
 
-  getMerged = utils.cacheResult(() => {
-    return _.chain(this.remoteApps)
-      .filter($app => !(_.isObject(this.staticAppsMap[$app.id])))
-      .union(this.staticApps)
-      .sortBy($app => $app.id)
-      .value();
-  });
+  getMerged = utils.cacheResult(() => _.chain(this.remoteApps)
+    .filter($app => !(_.isObject(this.staticAppsMap[$app.id])))
+    .union(this.staticApps)
+    .sortBy($app => $app.id)
+    .value());
 
-  getActive = utils.cacheResult(() => {
-    return _.chain(this.getMerged())
-      .filter(($app => $app && $app.id && this.consentConfigs[$app.id]))
-      .value();
-  });
+  getActive = utils.cacheResult(() => _.chain(this.getMerged())
+    .filter(($app => $app && $app.id && this.consentConfigs[$app.id]))
+    .value());
 
-  getActiveGroupedByPurpose = utils.cacheResult(() => {
-    return _.chain(this.getActive())
-      .reduce(($memo, $app) => {
-        const uniquePurposes = this.getConfigureUniquePurposes($app.id);
-        if (_.isEmpty(uniquePurposes)) {
-          utils.getOrCreateAndReturn($memo, DEFAULT_PURPOSE_UNDEFINED.id, new ApplicationGroup(DEFAULT_PURPOSE_UNDEFINED))
+  getActiveGroupedByPurpose = utils.cacheResult(() => _.chain(this.getActive())
+    .reduce(($memo, $app) => {
+      const uniquePurposes = this.getConfigureUniquePurposes($app.id);
+      if (_.isEmpty(uniquePurposes)) {
+        utils.getOrCreateAndReturn($memo, DEFAULT_PURPOSE_UNDEFINED.id, new ApplicationGroup(DEFAULT_PURPOSE_UNDEFINED))
+          .items
+          .push($app);
+      } else {
+        _.each(uniquePurposes, ($purpose) => {
+          utils.getOrCreateAndReturn($memo, $purpose.id, new ApplicationGroup($purpose))
             .items
             .push($app);
-        } else {
-          _.each(uniquePurposes, ($purpose) => {
-            utils.getOrCreateAndReturn($memo, $purpose.id, new ApplicationGroup($purpose))
-              .items
-              .push($app);
-          });
-        }
-        return $memo;
-      }, {})
-      .value();
-  });
-  getPurposes = utils.cacheResult(() => {
-    return _.chain(this.getGroupedByPurpose())
-      .map($group => $group.definition)
-      .value();
-  });
+        });
+      }
+      return $memo;
+    }, {})
+    .map($group => $group)
+    .sortBy($group => $group.definition.name)
+    .value());
+
+
+  getPurposes = utils.cacheResult(() => _.chain(this.getGroupedByPurpose())
+    .map($group => $group.definition)
+    .value());
+
 }
 
 class Application {
@@ -137,6 +138,7 @@ class Application {
       .first()
       .value();
   }
+
 }
 
 function init(vueServices) {
@@ -207,6 +209,11 @@ function isAccepted($application) {
     .isAccepted();
 }
 
+function isGroupAccepted($group) {
+  const groupConsent = vue.$services.consent.getConsent($group.definition.id);
+  return groupConsent.flag === null ? null : groupConsent.isAccepted();
+}
+
 function isAlwaysOn($application) {
   return vue.$services.consent.getConsent($application.id)
     .isAlwaysOn();
@@ -219,6 +226,15 @@ function setAccepted($application, $isAccepted) {
     vue.$services.consent.reject($application.id);
     removeApplicationClientData($application);
   }
+}
+
+function setGroupAccepted($group, $isAccepted) {
+  if ($isAccepted === true) {
+    vue.$services.consent.accept($group.definition.id);
+  } else {
+    vue.$services.consent.reject($group.definition.id);
+  }
+  _.each($group.items, $application => removeApplicationClientData($application));
 }
 
 function removeApplicationData($application) {
@@ -297,14 +313,6 @@ function removeApplicationProfile($application) {
   });
 }
 
-function enabledApplication($application) {
-  return setAccepted($application, true);
-}
-
-function disableApplication($application) {
-  return setAccepted($application, false);
-}
-
 function downloadApplicationProfile($application) {
   return new Promise(($resolve, $reject) => {
     getApplicationProfile($application)
@@ -346,13 +354,13 @@ export default {
   isEnabled,
   isAlwaysOn,
   isAccepted,
+  isGroupAccepted,
   isGroupEnabled,
   setAccepted,
+  setGroupAccepted,
   removeApplicationData,
   removeApplicationClientData,
   removeApplicationProfile,
-  enabledApplication,
-  disableApplication,
   downloadApplicationProfile,
   getGDPRLink,
   getLogo,

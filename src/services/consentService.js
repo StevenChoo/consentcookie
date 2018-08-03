@@ -57,16 +57,21 @@ class Consents {
     return serialized.join(constants.DEFAULT_CONSENTS_SEPERATOR);
   }
 
-  static create($ccApps, $ccCookieMap) {
+  static create($ccConsentAppsConfig, $ccCookieMap) {
     const consents = new Consents($ccCookieMap);
 
-    if (!(_.isObject($ccApps))) {
+    if (!(_.isObject($ccConsentAppsConfig))) {
       return consents;
     }
 
-    _.each($ccApps, ($ccAppVal, $ccAppId) => {
-      if (_.isString($ccAppId) && _.isObject($ccAppVal)) {
-        consents.add(Consent.create($ccAppId, $ccAppVal, $ccCookieMap));
+    _.each($ccConsentAppsConfig, ($ccConsentAppConfig, $ccAppId) => {
+      if (_.isString($ccAppId) && _.isObject($ccConsentAppConfig)) {
+        consents.add(Consent.create($ccAppId, $ccConsentAppConfig, $ccCookieMap));
+      }
+    });
+    _.each($ccCookieMap, ($consentVal, $ccPurposeId) => {
+      if (_.isString($ccPurposeId) && $ccPurposeId.indexOf(constants.DEFAULT_CONSENT_PURPOSES_ID_PREFIX) === 0) {
+        consents.add(Consent.create($ccPurposeId, null, $consentVal));
       }
     });
     return consents;
@@ -101,11 +106,14 @@ class Consent {
     return this.isAccepted() || this.isAlwaysOn();
   }
 
-  static create($consentId, $ccAppVal, $ccCookieMap) {
-    if (!(_.isString($consentId)) && !(_.isObject($ccAppVal))) {
+  static create($consentId, $ccConsentAppConfig, $ccCookieVal) {
+    if (!(_.isString($consentId)) || (!(_.isObject($ccConsentAppConfig)) &&
+      ($ccCookieVal !== constants.DEFAULT_CONSENT_INIT_STATE_OPTIN && $ccCookieVal !== constants.DEFAULT_CONSENT_INIT_STATE_OPTOUT))) {
       return null;
     }
-    return new Consent($consentId, getConsentValue($consentId, $ccAppVal, $ccCookieMap));
+    const consentFlag = _.isObject($ccConsentAppConfig) ?
+      getConsentValue($consentId, $ccConsentAppConfig, $ccCookieVal) : $ccCookieVal;
+    return new Consent($consentId, consentFlag);
   }
 
 }
@@ -117,8 +125,8 @@ function init(vueServices) {
   vue = vueServices.getVueInstance();
 }
 
-function getConsentValue($ccAppId, $ccAppVal, $ccCookieVal) {
-  const ccAppInitState = getInitState($ccAppVal.initstate);
+function getConsentValue($ccAppId, $ccConsentAppConfig, $ccCookieVal) {
+  const ccAppInitState = getInitState($ccConsentAppConfig.initstate);
   let ccCookieConsentVal = $ccCookieVal[$ccAppId];
 
   if (typeof ccCookieConsentVal === 'undefined' || ccCookieConsentVal == null) {
@@ -150,7 +158,7 @@ function getCCCookieMap() {
   return map;
 }
 
-function getCCApps() {
+function getConsentAppsConfig() {
   const configuredApps = _.clone(vue.$services.config.get(constants.CONFIG_KEY_APPS_CONSENT));
   if (vue.$services.main.isConsentWallEnabled()) {
     configuredApps[constants.DEFAULT_CONSENTWALL_COOKIE_ID] = { initstate: constants.DEFAULT_CONSENT_STATE_LABEL_OPTIN };
@@ -177,8 +185,8 @@ function save() {
 
 function load() {
   const ccCookieMap = getCCCookieMap();
-  const ccApps = getCCApps();
-  consents = Consents.create(ccApps, ccCookieMap);
+  const ccConsentAppConfig = getConsentAppsConfig();
+  consents = Consents.create(ccConsentAppConfig, ccCookieMap);
   if (vue.$services.main.isConsentWallAccepted()) {
     save();
   }

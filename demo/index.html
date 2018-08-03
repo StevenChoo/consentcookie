@@ -36,6 +36,7 @@
   </style>
 </head>
 <body>
+<!--
 <script type="application/javascript">
   ConsentCookie.init({
     'general': {
@@ -94,6 +95,111 @@
     }
   });
 
+</script>
+-->
+<script>window.ConsentCookie.init({
+  'general': {
+    'uuid': 'd1e3f440-93d3-11e8-9873-fbe73290b77d',
+    'generatedBy': 'dev-demo_1.2.2',
+    'consent': {
+      'type': 'purpose'
+    }
+  },
+  'purposes': {
+    'consent': {
+      'ccp-b1':{
+        'initstate': 'optin',
+      }
+    }
+  },
+  'apps': {
+    'consent': {
+      // ConsentCookie
+      'cc': {
+        'initstate': 'optin',
+        'dataProcessings': [],
+      },
+      // Facebook
+      'fbp': {
+        'initstate': 'optout',
+        'dataProcessings': [],
+      },
+      // Google Tag Manager
+      'gtm': {
+        'initstate': 'alwayson',
+        'dataProcessings': [
+          'gtm-ga'
+        ],
+      },
+      // Hotjar
+      'htj': {
+        'initstate': 'optout',
+        'dataProcessings': [
+          'htj-heatmap',
+          'htj-reqruit',
+          'htj-feedback',
+          'htj-survey',
+          'htj-polls',
+          'htj-form',
+          'htj-conv',
+          'htj-rec'
+        ],
+      },
+      // Iqnomy
+      'iq': {
+        'initstate': 'optout',
+        'dataProcessings': [],
+      },
+      // Zopim chat
+      'zop': {
+        'initstate': 'alwayson',
+        'dataProcessings': [
+          'chat',
+          'contactform'
+        ],
+      },
+      // Google Analytics
+      'ga': {
+        'initstate': 'alwayson',
+        'dataProcessings': [
+          'ga'
+        ],
+      },
+      // Google Adsense
+      'gas': {
+        'initstate': 'optout',
+        'dataProcessings': [],
+      },
+      // Bing Ads
+      'bia': {
+        'initstate': 'alwayson',
+        'dataProcessings': [
+          'bia-user',
+          'bia-conversion',
+          'bia-device',
+          'bia-location',
+          'bia-remarketing',
+          'bia-uet'
+        ],
+      },
+      // MailChimp
+      'mc': {
+        'initstate': 'optout',
+        'dataProcessings': [],
+      },
+      // TradeTracker
+      'tt': {
+        'initstate': 'optin',
+        'dataProcessings': [],
+      },
+      // Wiqhit
+      'wiq': {
+        'initstate': 'alwayson',
+        'dataProcessings': [],
+      }
+    }
+  }
+});
 </script>
 </body>
 </html>
