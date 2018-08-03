@@ -21,8 +21,9 @@
       <cc-img :img="logo" :size="15" :unit="'px'"/>
       <span>{{ application.name }}</span>
     </cc-toggle>
-    <cc-toggle-icon v-theme="{color:'primary'}" :icon="'cc-user'" v-model="showInfo" :disabled="!hasPlugin"
-:size="20"/>
+    <cc-toggle v-model="showInfo" class="cc-toggle-icon" v-if="hasPlugin">
+      <i :class="['cc-user']" />
+    </cc-toggle>
     <cc-switch v-model="accepted" :disabled="disabled" :on-title="$t('general.on')" :off-title="$t('general.off')"/>
   </div>
 </template>
@@ -31,7 +32,6 @@
 
   import ccImg from 'components/general/ccImg';
   import ccToggle from 'components/general/ccToggle';
-  import ccToggleIcon from 'components/general/ccToggleIcon';
   import ccSwitch from 'components/general/ccSwitch';
 
   export default {
@@ -39,7 +39,6 @@
     components: {
       ccImg,
       ccToggle,
-      ccToggleIcon,
       ccSwitch,
     },
     props: {
@@ -118,14 +117,10 @@
     }
 
     .cc-toggle-icon {
-      cursor: pointer;
 
-      &.cc-off {
+      i{
+        font-size: 20px;
         color: $cc-brand-color;
-      }
-
-      &.cc-disabled {
-        display: none;
       }
     }
 
