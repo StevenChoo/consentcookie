@@ -15,8 +15,8 @@
   -
   -->
 <template>
-  <label :class="['cc-switch',{'cc-disabled':disabled}]">
-    <input v-model="currentValue" :disabled="disabled" type="checkbox" @change="$emit('change', currentValue)">
+  <label :class="['cc-switch',{'cc-disabled':disabled},{'cc-undefined':isUndefined}]">
+    <input v-model="modelVal" :disabled="disabled" type="checkbox">
     <span v-theme="{background:'primary'}">
       <div class="cc-state cc-on">{{onTitle}}</div>
       <div class="cc-state cc-off" v-theme="{color:'primary'}">{{offTitle}}</div>
@@ -52,14 +52,23 @@
         default: 'Off',
       },
     },
+    data() {
+      return {
+        switchVal: this.value,
+      };
+    },
     computed: {
-      currentValue: {
+      modelVal: {
         get() {
-          return this.value;
+          return this.switchVal;
         },
-        set(val) {
-          this.$emit('input', val);
+        set($val) {
+          this.switchVal = $val;
+          this.$emit('input', $val);
         },
+      },
+      isUndefined() {
+        return this.switchVal === null;
       },
     },
   };
@@ -152,7 +161,7 @@
         background-color: $switch-color-off;
         border: $switch-border-width + px solid $switch-color-on;
         border-radius: ($switch-height - 10) + px;;
-        transition: margin 0.4s, background 0.4s;
+        transition: all 0.4s;
       }
 
       .cc-state {
@@ -173,6 +182,21 @@
           font-size: $switch-state-fontsize + px;
           right: $switch-state-offset + px;
           color: $switch-color-on;
+          visibility: hidden;
+        }
+      }
+    }
+
+    &.cc-undefined {
+
+      > input[type="checkbox"] + span {
+
+        .cc-state {
+          visibility: hidden !important;
+        }
+
+        .cc-switch-toggle {
+          margin-left: ($switch-width / 4) + px;
         }
       }
     }
@@ -188,7 +212,15 @@
       .cc-switch-toggle {
         margin-left: ($switch-width / 2) + $switch-on-margin-offset + px;
         background-color: $switch-color-off;
-        border: $switch-border-width + px solid $switch-color-off;;
+        border: $switch-border-width + px solid $switch-color-off;
+      }
+    }
+
+    > input[type="checkbox"]:not(:checked) + span {
+      .cc-state {
+        &.cc-off:not(cc-undefined) {
+          visibility: visible;
+        }
       }
     }
   }
