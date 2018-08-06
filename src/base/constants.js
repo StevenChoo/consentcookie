@@ -28,6 +28,9 @@ export const CONFIG_KEY_GENERAL_LANGUAGE = CONFIG_KEY_GENERAL + '.language';
 export const CONFIG_KEY_GENERAL_LANGUAGE_DEFAULT = CONFIG_KEY_GENERAL_LANGUAGE + '.default';
 export const CONFIG_KEY_GENERAL_LANGUAGE_FALLBACK = CONFIG_KEY_GENERAL_LANGUAGE + '.fallback';
 
+export const CONFIG_KEY_GENERAL_CONSENT = CONFIG_KEY_GENERAL + '.consent';
+export const CONFIG_KEY_GENERAL_CONSENT_TYPE = CONFIG_KEY_GENERAL_CONSENT + '.type';
+
 export const CONFIG_KEY_APPS = 'apps';
 export const CONFIG_KEY_APPS_STATIC = CONFIG_KEY_APPS + '.static';
 export const CONFIG_KEY_APPS_ENDPOINT = CONFIG_KEY_APPS + '.endpoint';
@@ -70,6 +73,7 @@ export const DEFAULT_CONSENTCOOKIE_COOKIE_VAL_ALWAYSON = -1;
 
 export const DEFAULT_CONSENTS_SEPERATOR = '&';
 export const DEFAULT_CONSENT_SEPERATOR = '=';
+export const DEFAULT_CONSENT_PURPOSES_ID_PREFIX = 'ccp-';
 
 export const DEFAULT_CONSENT_INIT_STATE_OPTIN = DEFAULT_CONSENTCOOKIE_COOKIE_VAL_REJECTED;
 export const DEFAULT_CONSENT_INIT_STATE_OPTOUT = DEFAULT_CONSENTCOOKIE_COOKIE_VAL_ACCEPTED;
@@ -83,10 +87,9 @@ export const DEFAULT_CONSENT_STATE_LABEL_ALWAYSON = 'alwayson';
 export const DEFAULT_CONSENTCOOKIE_HOST_LOCATION = 'https://cdn.humanswitch.services/cc/consentcookie/';
 export const DEFAULT_CONSENTCOOKIE_APPLICATION_RESOURCE_LOCATION = DEFAULT_CONSENTCOOKIE_HOST_LOCATION + 'consentcookie.json';
 export const DEFAULT_CONSENTCOOKIE_APPLICATION_LOGO_LOCATION = DEFAULT_CONSENTCOOKIE_HOST_LOCATION + 'logo/';
-export const DEFAULT_CONSENTCOOKIE_APPLICATION_LOGO_EXTENSION = '.png';
+export const DEFAULT_CONSENTCOOKIE_APPLICATION_GROUP_ICON_LOCATION = DEFAULT_CONSENTCOOKIE_APPLICATION_LOGO_LOCATION + 'purpose/';
 export const DEFAULT_CONSENTCOOKIE_APPLICATION_ID_URL_PARAM = 'ccid';
 export const DEFAULT_CONSENTCOOKIE_APPLICATION_CONSENT_PREFIX_TEMPLATE = CONFIG_KEY_APPS_CONSENT + '.<%= applicationId %>';
-
 export const DEFAULT_CONSENTCOOKIE_PROFILE_EXPORT_SUFFIX = '-profile.json';
 
 export const DEFAULT_RESOURCE_LANGUAGE = 'nl';
@@ -102,6 +105,8 @@ export const DEFAULT_EVENT_NAME_PROFILE = 'profile';
 export const DEFAULT_EVENT_NAME_APP_CREATED = 'created';
 export const DEFAULT_EVENT_NAME_APP_MOUNTED = 'mounted';
 export const DEFAULT_EVENT_NAME_APP_OPENVIEW = 'openView';
+
+export const DEFAULT_IMAGE_EXTENSION = '.png';
 
 /* eslint-disable max-len */
 export const DEFAULT_RESOURCES_ABOUT_TEXT = '<p>Baas over eigen data, dat vinden wij heel normaal. Niet alleen vanwege de AVG, maar omdat wij geloven in transparantie en fatsoen. Daarom gebruiken wij ConsentCookie.</p>' +
